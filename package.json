@@ -1,0 +1,64 @@
+{
+  "name": "@anthropic/shopify-mcp-server",
+  "version": "1.0.0",
+  "description": "The most comprehensive MCP server for Shopify - 70 tools for complete store management, automation, analytics, and AI-powered operations",
+  "type": "module",
+  "main": "dist/index.js",
+  "bin": {
+    "shopify-mcp-server": "dist/index.js"
+  },
+  "scripts": {
+    "start": "node dist/index.js",
+    "dev": "tsx watch src/index.ts",
+    "build": "tsc",
+    "clean": "rm -rf dist",
+    "prepublishOnly": "npm run build"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "shopify",
+    "ecommerce",
+    "api",
+    "claude",
+    "anthropic",
+    "ai",
+    "automation",
+    "store-management",
+    "orders",
+    "products",
+    "inventory",
+    "marketing",
+    "analytics"
+  ],
+  "author": "Travis <travis.unitedstates@gmail.com>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/guckert-dev/shopify-mcp-server.git"
+  },
+  "bugs": {
+    "url": "https://github.com/guckert-dev/shopify-mcp-server/issues"
+  },
+  "homepage": "https://github.com/guckert-dev/shopify-mcp-server#readme",
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.6.1",
+    "axios": "^1.7.9",
+    "zod": "^3.23.8",
+    "express": "^4.21.0"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.21",
+    "@types/node": "^22.10.0",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.2"
+  }
+}

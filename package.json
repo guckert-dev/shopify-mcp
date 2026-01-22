@@ -1,11 +1,11 @@
 {
-  "name": "@anthropic/shopify-mcp-server",
+  "name": "@lemay/shopify-mcp",
   "version": "1.0.0",
-  "description": "The most comprehensive MCP server for Shopify - 70 tools for complete store management, automation, analytics, and AI-powered operations",
+  "description": "Official Shopify MCP connector - 70 tools for complete store management, automation, analytics, and AI-powered operations",
   "type": "module",
   "main": "dist/index.js",
   "bin": {
-    "shopify-mcp-server": "dist/index.js"
+    "shopify-mcp": "dist/index.js"
   },
   "scripts": {
     "start": "node dist/index.js",
@@ -32,9 +32,10 @@
     "products",
     "inventory",
     "marketing",
-    "analytics"
+    "analytics",
+    "lemay"
   ],
-  "author": "Travis <travis.unitedstates@gmail.com>",
+  "author": "Lemay <travis.unitedstates@gmail.com>",
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -43,7 +44,7 @@
   "bugs": {
     "url": "https://github.com/guckert-dev/shopify-mcp-server/issues"
   },
-  "homepage": "https://github.com/guckert-dev/shopify-mcp-server#readme",
+  "homepage": "https://mcp.lemay.app",
   "files": [
     "dist",
     "README.md",

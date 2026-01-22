@@ -92,7 +92,7 @@ function validateEnvironment(): void {
 // Create and configure the MCP server
 function createServer(): McpServer {
   const server = new McpServer({
-    name: "shopify-mcp-server",
+    name: "Shopify",
     version: "1.0.0",
   });
 

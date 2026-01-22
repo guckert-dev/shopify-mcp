@@ -1,6 +1,24 @@
-# Shopify MCP Server
+<p align="center">
+  <img src="public/icon.svg" width="80" height="80" alt="Shopify">
+</p>
 
-A [Model Context Protocol (MCP)](https://modelcontextprotocol.io/) server for the Shopify Admin API. This server enables AI assistants like Claude to **manage and automate** Shopify stores - not just view data, but take real actions like updating prices, running marketing campaigns, posting to social media, and more.
+<h1 align="center">Shopify</h1>
+
+<p align="center">
+  <strong>Official MCP Connector for Shopify</strong><br>
+  <a href="https://mcp.lemay.app">mcp.lemay.app</a>
+</p>
+
+<p align="center">
+  <a href="#features">Features</a> •
+  <a href="#installation">Installation</a> •
+  <a href="#usage-examples">Usage</a> •
+  <a href="#api-reference">API</a>
+</p>
+
+---
+
+Connect Claude to your Shopify store. This [Model Context Protocol (MCP)](https://modelcontextprotocol.io/) connector enables AI assistants to **manage and automate** your entire Shopify operation - not just view data, but take real actions like updating prices, running marketing campaigns, posting to social media, and more.
 
 ## 🚀 What Makes This Different
 

@@ -1,0 +1,44 @@
+{
+  "name": "Shopify",
+  "description": "Connect Claude to your Shopify store. Manage orders, products, customers, inventory, marketing, and more with 70 powerful tools.",
+  "version": "1.0.0",
+  "icon": "https://mcp.lemay.app/icon.svg",
+  "homepage": "https://mcp.lemay.app",
+  "documentation": "https://mcp.lemay.app/docs",
+  "endpoints": {
+    "mcp": "https://mcp.lemay.app/mcp"
+  },
+  "auth": {
+    "type": "oauth2",
+    "authorization_url": "https://mcp.lemay.app/auth/shopify",
+    "token_url": "https://mcp.lemay.app/auth/token",
+    "scopes": [
+      "read_orders",
+      "write_orders",
+      "read_products",
+      "write_products",
+      "read_customers",
+      "write_customers",
+      "read_inventory",
+      "write_inventory"
+    ]
+  },
+  "capabilities": {
+    "tools": 70,
+    "categories": [
+      "Orders",
+      "Products",
+      "Customers",
+      "Inventory",
+      "Fulfillments",
+      "Discounts",
+      "Marketing",
+      "Analytics"
+    ]
+  },
+  "publisher": {
+    "name": "Lemay",
+    "url": "https://lemay.app",
+    "email": "travis.unitedstates@gmail.com"
+  }
+}

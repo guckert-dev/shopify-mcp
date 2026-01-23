@@ -1,10 +1,3 @@
-import fs from 'fs';
-import path from 'path';
-import { fileURLToPath } from 'url';
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
 // Landing page HTML
 const landingPage = `<!DOCTYPE html>
 <html lang="en">
@@ -259,9 +252,9 @@ const iconSvg = `<svg viewBox="0 0 109.5 124.5" fill="none" xmlns="http://www.w3
   <path d="M58.4 43.2L54 57.2s-4.2-1.8-9.2-1.4c-7.3.5-7.4 5.1-7.3 6.2.4 6.5 17.5 7.9 18.5 23.1.7 12-6.4 20.2-16.6 20.9-12.3.8-19-6.5-19-6.5l2.6-11s6.7 5.1 12.1 4.7c3.5-.2 4.8-3.1 4.7-5.1-.5-8.4-14.5-7.9-15.4-21.9-.8-11.8 7-23.8 24.1-24.9 6.7-.4 10-1.1 10-1.1z" fill="#fff"/>
 </svg>`;
 
-export default function handler(req, res) {
-  const { url } = req;
-  const pathname = new URL(url, `http://${req.headers.host}`).pathname;
+module.exports = function handler(req, res) {
+  const url = new URL(req.url, `https://${req.headers.host}`);
+  const pathname = url.pathname;
 
   // Set CORS headers
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -270,24 +263,26 @@ export default function handler(req, res) {
 
   // Handle OPTIONS preflight
   if (req.method === 'OPTIONS') {
-    return res.status(200).end();
+    res.status(200).end();
+    return;
   }
 
   // Route handling
   if (pathname === '/.well-known/mcp.json') {
     res.setHeader('Content-Type', 'application/json');
-    return res.status(200).json(mcpManifest);
+    res.status(200).json(mcpManifest);
+    return;
   }
 
   if (pathname === '/icon.svg') {
     res.setHeader('Content-Type', 'image/svg+xml');
-    return res.status(200).send(iconSvg);
+    res.status(200).send(iconSvg);
+    return;
   }
 
   if (pathname === '/mcp' || pathname === '/mcp/') {
-    // MCP endpoint - return info about the server
     res.setHeader('Content-Type', 'application/json');
-    return res.status(200).json({
+    res.status(200).json({
       name: "Shopify MCP Server",
       version: "1.0.0",
       status: "available",
@@ -295,9 +290,10 @@ export default function handler(req, res) {
       github: "https://github.com/guckert-dev/shopify-mcp-server",
       tools: 70
     });
+    return;
   }
 
   // Default: return landing page
   res.setHeader('Content-Type', 'text/html');
-  return res.status(200).send(landingPage);
-}
+  res.status(200).send(landingPage);
+};

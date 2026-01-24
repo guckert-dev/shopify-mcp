@@ -128,6 +128,28 @@ export function registerAnalyticsTools(server: McpServer): void {
       const returningCustomers = orders.filter((o: any) => o.customer?.ordersCount > 1).length;
       const newCustomerOrders = totalOrders - returningCustomers;
 
+      // Helper to safely extract hostname from a referrer URL
+      const getReferrerHost = (url: string): string | null => {
+        if (!url) return null;
+        try {
+          const parsed = new URL(url);
+          return parsed.hostname.toLowerCase();
+        } catch {
+          return null;
+        }
+      };
+
+      const matchesHost = (ref: string, targetHost: string): boolean => {
+        const host = getReferrerHost(ref);
+        const normalizedTarget = targetHost.toLowerCase();
+        if (host) {
+          const h = host.toLowerCase();
+          return h === normalizedTarget || h.endsWith("." + normalizedTarget);
+        }
+        // Fallback to substring check if the referrer is not a valid URL
+        return ref.toLowerCase().includes(normalizedTarget);
+      };
+
       // Traffic source analysis (from referrer URLs)
       const trafficSources: Record<string, number> = {};
       for (const order of orders) {
@@ -137,7 +159,11 @@ export function registerAnalyticsTools(server: McpServer): void {
         if (referrer.includes("google")) source = "google";
         else if (referrer.includes("facebook") || referrer.includes("fb.")) source = "facebook";
         else if (referrer.includes("instagram")) source = "instagram";
-        else if (referrer.includes("twitter") || referrer.includes("x.com")) source = "twitter";
+        else if (
+          matchesHost(referrer, "twitter.com") ||
+          matchesHost(referrer, "t.co") ||
+          matchesHost(referrer, "x.com")
+        ) source = "twitter";
         else if (referrer.includes("tiktok")) source = "tiktok";
         else if (referrer.includes("email") || referrer.includes("klaviyo") || referrer.includes("mailchimp")) source = "email";
         else if (referrer.includes("pinterest")) source = "pinterest";

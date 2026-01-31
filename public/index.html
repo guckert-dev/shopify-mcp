@@ -24,7 +24,6 @@
       overflow-x: hidden;
     }
 
-    /* Subtle gradient glow */
     body::before {
       content: '';
       position: absolute;
@@ -62,17 +61,9 @@
       -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 10%, black 90%, transparent 100%);
     }
 
-    .tools-column.visible {
-      opacity: 1;
-    }
-
-    .tools-column.left {
-      right: calc(50% + 280px);
-    }
-
-    .tools-column.right {
-      left: calc(50% + 280px);
-    }
+    .tools-column.visible { opacity: 1; }
+    .tools-column.left { right: calc(50% + 280px); }
+    .tools-column.right { left: calc(50% + 280px); }
 
     .tools-scroll {
       display: flex;
@@ -189,13 +180,8 @@
       transition: all 0.2s ease;
     }
 
-    .stat.clickable {
-      cursor: pointer;
-    }
-
-    .stat.clickable:hover {
-      border-color: #95bf47;
-    }
+    .stat.clickable { cursor: pointer; }
+    .stat.clickable:hover { border-color: #95bf47; }
 
     .stat.active {
       background: linear-gradient(135deg, #95bf47 0%, #6a9a2d 100%);
@@ -203,9 +189,7 @@
     }
 
     .stat.active .stat-number,
-    .stat.active .stat-label {
-      color: #0d0d0d;
-    }
+    .stat.active .stat-label { color: #0d0d0d; }
 
     .stat-number {
       font-size: 1.75rem;
@@ -235,15 +219,156 @@
       color: #999;
       padding: 8px 14px;
       border-radius: 8px;
-      font-size: 0.8rem;
+      font-size: 0.75rem;
       font-weight: 500;
       border: 1px solid #2a2a2a;
       transition: all 0.2s ease;
+      cursor: pointer;
+      position: relative;
     }
 
     .category:hover {
       border-color: #95bf47;
       color: #95bf47;
+      transform: translateY(-2px);
+    }
+
+    .category.active {
+      background: #95bf47;
+      color: #0d0d0d;
+      border-color: #95bf47;
+    }
+
+    .category .tool-count {
+      display: inline-block;
+      background: rgba(149, 191, 71, 0.2);
+      color: #95bf47;
+      font-size: 0.6rem;
+      padding: 2px 5px;
+      border-radius: 4px;
+      margin-left: 6px;
+      font-weight: 600;
+    }
+
+    .category.active .tool-count {
+      background: rgba(0, 0, 0, 0.2);
+      color: #0d0d0d;
+    }
+
+    /* Tool Preview Modal */
+    .tool-preview {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.85);
+      backdrop-filter: blur(8px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+    }
+
+    .tool-preview.visible {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .preview-content {
+      background: #161616;
+      border: 1px solid #2a2a2a;
+      border-radius: 20px;
+      padding: 32px;
+      max-width: 400px;
+      width: 90%;
+      transform: scale(0.9) translateY(20px);
+      transition: all 0.3s ease;
+    }
+
+    .tool-preview.visible .preview-content {
+      transform: scale(1) translateY(0);
+    }
+
+    .preview-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 24px;
+    }
+
+    .preview-title {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: #95bf47;
+    }
+
+    .preview-close {
+      background: #2a2a2a;
+      border: none;
+      color: #888;
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s ease;
+    }
+
+    .preview-close:hover {
+      background: #333;
+      color: #fff;
+    }
+
+    .preview-tools {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      max-height: 300px;
+      overflow-y: auto;
+    }
+
+    .preview-tool {
+      background: #1c1c1c;
+      border: 1px solid #2a2a2a;
+      padding: 12px 16px;
+      border-radius: 10px;
+      color: #ccc;
+      font-size: 0.85rem;
+      font-weight: 500;
+      opacity: 0;
+      transform: translateX(-20px);
+      animation: slideIn 0.3s ease forwards;
+    }
+
+    .preview-tool:nth-child(1) { animation-delay: 0.05s; }
+    .preview-tool:nth-child(2) { animation-delay: 0.1s; }
+    .preview-tool:nth-child(3) { animation-delay: 0.15s; }
+    .preview-tool:nth-child(4) { animation-delay: 0.2s; }
+    .preview-tool:nth-child(5) { animation-delay: 0.25s; }
+    .preview-tool:nth-child(6) { animation-delay: 0.3s; }
+    .preview-tool:nth-child(7) { animation-delay: 0.35s; }
+    .preview-tool:nth-child(8) { animation-delay: 0.4s; }
+
+    @keyframes slideIn {
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    .preview-tool-icon {
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      background: #95bf47;
+      border-radius: 50%;
+      margin-right: 10px;
     }
 
     .buttons {
@@ -331,9 +456,7 @@
       font-weight: 500;
     }
 
-    .footer a:hover {
-      text-decoration: underline;
-    }
+    .footer a:hover { text-decoration: underline; }
 
     .copyright {
       margin-top: 8px;
@@ -342,9 +465,7 @@
     }
 
     @media (max-width: 1200px) {
-      .tools-column {
-        display: none;
-      }
+      .tools-column { display: none; }
     }
 
     @media (max-width: 480px) {
@@ -353,33 +474,31 @@
         border-radius: 20px;
       }
 
-      h1 {
-        font-size: 1.75rem;
-      }
+      h1 { font-size: 1.75rem; }
 
       .stats {
         flex-direction: column;
         gap: 8px;
       }
 
-      .stat {
-        width: 100%;
-      }
+      .stat { width: 100%; }
 
-      .buttons {
-        flex-direction: column;
-      }
+      .buttons { flex-direction: column; }
 
       .btn {
         width: 100%;
         justify-content: center;
+      }
+
+      .category {
+        font-size: 0.7rem;
+        padding: 6px 10px;
       }
     }
   </style>
 </head>
 <body>
   <div class="page-wrapper">
-    <!-- Left scrolling tools -->
     <div class="tools-column left" id="tools-left">
       <div class="tools-scroll" id="scroll-left"></div>
     </div>
@@ -409,16 +528,7 @@
         </div>
       </div>
 
-      <div class="categories">
-        <span class="category">Orders</span>
-        <span class="category">Products</span>
-        <span class="category">Customers</span>
-        <span class="category">Inventory</span>
-        <span class="category">Fulfillments</span>
-        <span class="category">Discounts</span>
-        <span class="category">Marketing</span>
-        <span class="category">Analytics</span>
-      </div>
+      <div class="categories" id="categories"></div>
 
       <div class="buttons">
         <a href="https://github.com/guckert-dev/shopify-mcp-server" class="btn btn-primary">
@@ -442,76 +552,99 @@
       </div>
     </div>
 
-    <!-- Right scrolling tools -->
     <div class="tools-column right" id="tools-right">
       <div class="tools-scroll" id="scroll-right"></div>
     </div>
   </div>
 
+  <!-- Tool Preview Modal -->
+  <div class="tool-preview" id="toolPreview" onclick="closePreview(event)">
+    <div class="preview-content" onclick="event.stopPropagation()">
+      <div class="preview-header">
+        <div class="preview-title" id="previewTitle">Category</div>
+        <button class="preview-close" onclick="closePreview()">
+          <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 6L6 18M6 6l12 12"/></svg>
+        </button>
+      </div>
+      <div class="preview-tools" id="previewTools"></div>
+    </div>
+  </div>
+
   <script>
-    const tools = [
-      { category: "Orders", name: "Get Orders" },
-      { category: "Orders", name: "Get Order Details" },
-      { category: "Orders", name: "Cancel Order" },
-      { category: "Orders", name: "Close Order" },
-      { category: "Products", name: "Get Products" },
-      { category: "Products", name: "Get Product Details" },
-      { category: "Products", name: "Create Product" },
-      { category: "Products", name: "Update Product" },
-      { category: "Products", name: "Delete Product" },
-      { category: "Products", name: "Get Variants" },
-      { category: "Products", name: "Update Variant" },
-      { category: "Customers", name: "Get Customers" },
-      { category: "Customers", name: "Get Customer Details" },
-      { category: "Customers", name: "Search Customers" },
-      { category: "Customers", name: "Customer Orders" },
-      { category: "Inventory", name: "Get Inventory" },
-      { category: "Inventory", name: "Adjust Inventory" },
-      { category: "Inventory", name: "Set Inventory" },
-      { category: "Inventory", name: "Get Locations" },
-      { category: "Fulfillment", name: "Get Fulfillments" },
-      { category: "Fulfillment", name: "Create Fulfillment" },
-      { category: "Fulfillment", name: "Update Tracking" },
-      { category: "Discounts", name: "Create Discount" },
-      { category: "Discounts", name: "Get Discounts" },
-      { category: "Discounts", name: "Delete Discount" },
-      { category: "Marketing", name: "Create Campaign" },
-      { category: "Marketing", name: "Get Campaigns" },
-      { category: "Marketing", name: "Abandoned Cart" },
-      { category: "Analytics", name: "Store Analytics" },
-      { category: "Analytics", name: "Sales Forecast" },
-      { category: "Analytics", name: "Conversion Funnel" },
-      { category: "Analytics", name: "Product Performance" },
-      { category: "Collections", name: "Get Collections" },
-      { category: "Collections", name: "Create Collection" },
-      { category: "Metafields", name: "Get Metafields" },
-      { category: "Metafields", name: "Set Metafield" },
-      { category: "Webhooks", name: "Create Webhook" },
-      { category: "Webhooks", name: "List Webhooks" },
-      { category: "Webhooks", name: "Delete Webhook" },
-      { category: "Store", name: "Get Shop Info" },
-      { category: "Draft Orders", name: "List Draft Orders" },
-      { category: "Draft Orders", name: "Create Draft" },
-      { category: "Draft Orders", name: "Complete Draft" },
-      { category: "B2B", name: "List Companies" },
-      { category: "B2B", name: "Get Company" },
-      { category: "B2B", name: "Price Lists" },
-      { category: "Gift Cards", name: "List Gift Cards" },
-      { category: "Gift Cards", name: "Create Gift Card" },
-      { category: "Bulk Ops", name: "Bulk Update Prices" },
-      { category: "Bulk Ops", name: "Bulk Update Content" },
-      { category: "Automation", name: "Recovery Discount" },
-      { category: "Automation", name: "Email Consent" },
-      { category: "Social", name: "Create Campaign" },
-      { category: "Social", name: "Log Activity" }
-    ];
+    const categoryData = {
+      "Orders": ["List Orders", "Get Order Details", "Cancel Order", "Close Order"],
+      "Products": ["List Products", "Get Product", "Create Product", "Update Product", "Delete Product", "Get Variants", "Update Variant"],
+      "Customers": ["List Customers", "Get Customer", "Search Customers"],
+      "Inventory": ["Get Inventory Levels", "Adjust Inventory", "Set Inventory", "Get Locations"],
+      "Fulfillments": ["Get Fulfillment Orders", "Create Fulfillment", "Update Tracking"],
+      "Discounts": ["Create Discount Code", "List Discounts", "Delete Discount"],
+      "Collections": ["List Collections", "Get Collection", "Create Collection", "Collection Products"],
+      "Draft Orders": ["List Drafts", "Get Draft", "Create Draft", "Complete Draft", "Delete Draft"],
+      "Marketing": ["List Campaigns", "Create Campaign", "Delete Campaign", "List Activities", "Get Channels", "Publish Product", "Unpublish Product", "Get Engagements"],
+      "Analytics": ["Store Analytics", "Sales Forecast", "Conversion Funnel", "Product Performance"],
+      "Webhooks": ["List Webhooks", "Create Webhook", "Delete Webhook"],
+      "Metafields": ["Get Metafields", "Set Metafield", "Delete Metafield"],
+      "B2B": ["List Companies", "Get Company", "Create Company", "List Price Lists"],
+      "Gift Cards": ["List Gift Cards", "Get Gift Card", "Create Gift Card", "Disable Gift Card"],
+      "Bulk Ops": ["Bulk Update Prices", "Bulk Update Content", "Collection Pricing", "Price Analysis", "Generate Social Content"],
+      "Automation": ["Create Recovery Discount", "Update Email Consent", "Update Customer Tags", "Create Price Rule", "Win-Back Campaign"],
+      "Social": ["Create Social Campaign", "Log Marketing Activity", "Analyze Marketing Performance"],
+      "Refunds": ["Calculate Refund", "Create Refund"],
+      "Shop": ["Get Shop Info"]
+    };
+
+    const allTools = [];
+    Object.entries(categoryData).forEach(([category, tools]) => {
+      tools.forEach(tool => {
+        allTools.push({ category, name: tool });
+      });
+    });
 
     let toolsVisible = false;
 
+    // Generate category buttons
+    function renderCategories() {
+      const container = document.getElementById('categories');
+      Object.entries(categoryData).forEach(([name, tools]) => {
+        const btn = document.createElement('span');
+        btn.className = 'category';
+        btn.innerHTML = `${name}<span class="tool-count">${tools.length}</span>`;
+        btn.onclick = () => showPreview(name);
+        container.appendChild(btn);
+      });
+    }
+
+    function showPreview(categoryName) {
+      const preview = document.getElementById('toolPreview');
+      const title = document.getElementById('previewTitle');
+      const toolsContainer = document.getElementById('previewTools');
+
+      title.textContent = categoryName;
+      toolsContainer.innerHTML = '';
+
+      categoryData[categoryName].forEach(tool => {
+        const div = document.createElement('div');
+        div.className = 'preview-tool';
+        div.innerHTML = `<span class="preview-tool-icon"></span>${tool}`;
+        toolsContainer.appendChild(div);
+      });
+
+      // Highlight category
+      document.querySelectorAll('.category').forEach(c => c.classList.remove('active'));
+      event.target.closest('.category').classList.add('active');
+
+      preview.classList.add('visible');
+    }
+
+    function closePreview(e) {
+      if (e && e.target !== e.currentTarget) return;
+      document.getElementById('toolPreview').classList.remove('visible');
+      document.querySelectorAll('.category').forEach(c => c.classList.remove('active'));
+    }
+
     function createToolCards(containerId) {
       const container = document.getElementById(containerId);
-      const toolsToShow = [...tools, ...tools];
-
+      const toolsToShow = [...allTools, ...allTools];
       toolsToShow.forEach((tool) => {
         const card = document.createElement('div');
         card.className = 'tool-card';
@@ -527,9 +660,7 @@
       const stat = document.getElementById('tools-stat');
       const leftCol = document.getElementById('tools-left');
       const rightCol = document.getElementById('tools-right');
-
       toolsVisible = !toolsVisible;
-
       if (toolsVisible) {
         stat.classList.add('active');
         leftCol.classList.add('visible');
@@ -541,7 +672,13 @@
       }
     }
 
-    // Initialize tool cards
+    // Close on Escape key
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closePreview();
+    });
+
+    // Initialize
+    renderCategories();
     createToolCards('scroll-left');
     createToolCards('scroll-right');
   </script>

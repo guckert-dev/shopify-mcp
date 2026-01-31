@@ -1,26 +1,27 @@
 {
-  "name": "Shopify",
-  "description": "Connect Claude to your Shopify store. Manage orders, products, customers, inventory, marketing, and more with 70 powerful tools.",
+  "name": "Shopify MCP Server",
+  "description": "The Definitive Model Context Protocol for Shopify. Empower Claude to securely reason, build, and orchestrate store operations with 70+ Admin API tools designed for the agentic future.",
   "version": "1.0.0",
   "icon": "https://mcp.lemay.app/icon.svg",
   "homepage": "https://mcp.lemay.app",
-  "documentation": "https://mcp.lemay.app/docs",
-  "endpoints": {
-    "mcp": "https://mcp.lemay.app/mcp"
+  "repository": "https://github.com/guckert-dev/shopify-mcp-server",
+  "transport": {
+    "type": "stdio",
+    "install": "npx @anthropic-ai/claude-code mcp add github:guckert-dev/shopify-mcp-server"
   },
   "auth": {
-    "type": "oauth2",
-    "authorization_url": "https://mcp.lemay.app/auth/shopify",
-    "token_url": "https://mcp.lemay.app/auth/token",
-    "scopes": [
-      "read_orders",
-      "write_orders",
-      "read_products",
-      "write_products",
-      "read_customers",
-      "write_customers",
-      "read_inventory",
-      "write_inventory"
+    "type": "environment",
+    "variables": [
+      {
+        "name": "SHOPIFY_ACCESS_TOKEN",
+        "description": "Your Shopify Admin API access token",
+        "required": true
+      },
+      {
+        "name": "MYSHOPIFY_DOMAIN",
+        "description": "Your store domain (e.g., your-store.myshopify.com)",
+        "required": true
+      }
     ]
   },
   "capabilities": {
@@ -33,12 +34,23 @@
       "Fulfillments",
       "Discounts",
       "Marketing",
-      "Analytics"
+      "Analytics",
+      "Shop",
+      "Metafields",
+      "Webhooks",
+      "Shipping",
+      "Locations",
+      "Collections",
+      "Pages",
+      "Blogs",
+      "Redirects",
+      "ScriptTags",
+      "Themes"
     ]
   },
   "publisher": {
-    "name": "Lemay",
-    "url": "https://lemay.app",
+    "name": "LeMay",
+    "url": "https://x.com/GuckertTravis",
     "email": "travis.unitedstates@gmail.com"
   }
 }

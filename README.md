@@ -29,11 +29,11 @@ Unlike basic integrations that only read data, this server is built for **action
 - **Marketing Automation** - Create flash sales, recovery campaigns, auto-tag customers
 - **Social Media Integration** - Generate campaign content and post via Claude in Chrome
 - **Analytics & Forecasting** - Traffic analysis, revenue projections, conversion funnels
-- **Complete Store Management** - 70 tools covering every aspect of Shopify operations
+- **Complete Store Management** - 128 tools across 24 categories covering every aspect of Shopify operations
 
 ## Features
 
-**70 tools** across 19 categories for complete Shopify store management:
+**128 tools** across 24 categories for complete Shopify store management:
 
 ### 🛒 Order Management
 - **shopify_list_orders** - List and search orders with filtering by status, date, customer

@@ -1,7 +1,7 @@
 {
   "name": "@lemay/shopify-mcp",
   "version": "1.0.0",
-  "description": "Official Shopify MCP connector - 70 tools for complete store management, automation, analytics, and AI-powered operations",
+  "description": "Official Shopify MCP connector - 128 tools across 24 categories for complete store management, automation, analytics, and AI-powered operations",
   "type": "module",
   "main": "dist/index.js",
   "bin": {

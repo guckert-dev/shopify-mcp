@@ -1,6 +1,6 @@
 {
   "name": "Shopify MCP Server",
-  "description": "The Definitive Model Context Protocol for Shopify. Empower Claude to securely reason, build, and orchestrate store operations with 70+ Admin API tools designed for the agentic future.",
+  "description": "The Definitive Model Context Protocol for Shopify. Empower Claude to securely reason, build, and orchestrate store operations with 128 Admin API tools across 24 categories.",
   "version": "1.0.0",
   "icon": "https://mcp.lemay.app/icon.svg",
   "homepage": "https://mcp.lemay.app",
@@ -25,7 +25,7 @@
     ]
   },
   "capabilities": {
-    "tools": 70,
+    "tools": 128,
     "categories": [
       "Orders",
       "Products",
@@ -45,7 +45,12 @@
       "Blogs",
       "Redirects",
       "ScriptTags",
-      "Themes"
+      "Themes",
+      "Markets",
+      "Files",
+      "Policies",
+      "Gift Cards",
+      "Order Risks"
     ]
   },
   "publisher": {

@@ -8,236 +8,244 @@
   <link rel="icon" type="image/svg+xml" href="/icon.svg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
     body {
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-      background: #0d0d0d;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: #000;
+      color: #fff;
       min-height: 100vh;
+    }
+
+    /* Main Layout */
+    .mission-control {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      min-height: 100vh;
+    }
+
+    @media (max-width: 1024px) {
+      .mission-control {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* Left Column - The Manifesto */
+    .manifesto {
+      padding: 64px 56px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      border-right: 1px solid #1a1a1a;
+    }
+
+    @media (max-width: 1024px) {
+      .manifesto {
+        border-right: none;
+        border-bottom: 1px solid #1a1a1a;
+        padding: 48px 24px;
+      }
+    }
+
+    .kicker {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.65rem;
+      font-weight: 500;
+      color: #525252;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      margin-bottom: 12px;
+    }
+
+    .section-title {
+      font-size: 2.25rem;
+      font-weight: 700;
+      color: #fff;
+      letter-spacing: -0.03em;
+      margin-bottom: 8px;
+    }
+
+    .section-subtitle {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: #e5e5e5;
+      margin-bottom: 12px;
+    }
+
+    .section-text {
+      font-size: 0.95rem;
+      color: #a1a1a1;
+      line-height: 1.7;
+    }
+
+    .divider {
+      height: 1px;
+      background: linear-gradient(to right, #262626, transparent);
+      margin: 32px 0;
+    }
+
+    .subsection-title {
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: #fff;
+      margin-bottom: 6px;
+    }
+
+    .subsection-subtitle {
+      font-size: 0.95rem;
+      font-weight: 500;
+      color: #d4d4d4;
+      margin-bottom: 10px;
+    }
+
+    .subsection-text {
+      font-size: 0.88rem;
+      color: #737373;
+      line-height: 1.65;
+    }
+
+    .goal-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.7rem;
+      font-weight: 500;
+      color: #525252;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-top: 28px;
+      margin-bottom: 12px;
+    }
+
+    .terminal-block {
+      background: #0a0a0a;
+      border: 1px solid #262626;
+      border-radius: 12px;
+      padding: 20px 24px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.85rem;
+    }
+
+    .terminal-prompt {
+      color: #525252;
+    }
+
+    .terminal-command {
+      color: #96bf48;
+    }
+
+    /* Right Column - The Product */
+    .product-showcase {
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 24px;
-      position: relative;
-      overflow-x: hidden;
+      padding: 64px 48px;
+      background: radial-gradient(ellipse at center, rgba(150, 191, 72, 0.04) 0%, transparent 70%);
     }
 
-    body::before {
+    @media (max-width: 1024px) {
+      .product-showcase {
+        padding: 48px 24px;
+      }
+    }
+
+    .product-card {
+      background: linear-gradient(135deg, rgba(26, 26, 26, 0.8) 0%, rgba(10, 10, 10, 0.9) 100%);
+      border: 1px solid #262626;
+      border-radius: 28px;
+      padding: 56px 48px;
+      text-align: center;
+      max-width: 420px;
+      width: 100%;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .product-card::before {
       content: '';
       position: absolute;
       top: 0;
       left: 50%;
       transform: translateX(-50%);
-      width: 100%;
-      max-width: 800px;
-      height: 500px;
-      background: radial-gradient(ellipse at center top, rgba(149, 191, 71, 0.12) 0%, transparent 70%);
+      width: 200px;
+      height: 200px;
+      background: radial-gradient(circle, rgba(150, 191, 72, 0.15) 0%, transparent 70%);
       pointer-events: none;
     }
 
-    .page-wrapper {
+    .product-logo {
+      width: 80px;
+      height: 80px;
+      margin: 0 auto 28px;
+      background: linear-gradient(135deg, #96bf48 0%, #7a9e3a 100%);
+      border-radius: 20px;
       display: flex;
       align-items: center;
       justify-content: center;
+      box-shadow: 0 12px 40px -12px rgba(150, 191, 72, 0.4);
       position: relative;
-      width: 100%;
-      max-width: 1400px;
     }
 
-    /* Scrolling tool columns */
-    .tools-column {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      width: 220px;
-      height: 550px;
-      overflow: hidden;
-      opacity: 0;
-      transition: opacity 0.4s ease;
-      pointer-events: none;
-      mask-image: linear-gradient(to bottom, transparent 0%, black 10%, black 90%, transparent 100%);
-      -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 10%, black 90%, transparent 100%);
+    .product-logo svg {
+      width: 48px;
+      height: 54px;
     }
 
-    .tools-column.visible { opacity: 1; }
-    .tools-column.left { right: calc(50% + 260px); }
-    .tools-column.right { left: calc(50% + 260px); }
-
-    .tools-scroll {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      animation: scrollUp 44s linear infinite;
-    }
-
-    .tools-column.right .tools-scroll {
-      animation: scrollDown 44s linear infinite;
-    }
-
-    @keyframes scrollUp {
-      0% { transform: translateY(0); }
-      100% { transform: translateY(-50%); }
-    }
-
-    @keyframes scrollDown {
-      0% { transform: translateY(-50%); }
-      100% { transform: translateY(0); }
-    }
-
-    .tool-card {
-      background: #1a1a1a;
-      border: 1px solid #2a2a2a;
-      padding: 14px 18px;
-      border-radius: 10px;
-      font-size: 0.8rem;
-      font-weight: 500;
-    }
-
-    .tool-card .tool-category {
-      font-size: 0.65rem;
-      color: #95bf47;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      margin-bottom: 4px;
-      font-weight: 600;
-    }
-
-    .tool-card .tool-name {
-      color: #ffffff;
-      font-weight: 600;
-    }
-
-    .container {
-      background: #161616;
-      border: 1px solid #2a2a2a;
-      border-radius: 24px;
-      padding: 48px 40px;
-      max-width: 480px;
-      width: 100%;
-      text-align: center;
-      position: relative;
-      z-index: 10;
-    }
-
-    .logo-container {
-      width: 72px;
-      height: 72px;
-      margin: 0 auto 24px;
-      background: linear-gradient(135deg, #95bf47 0%, #6a9a2d 100%);
-      border-radius: 18px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: 0 8px 32px -8px rgba(149, 191, 71, 0.4);
-    }
-
-    .logo-container svg {
-      width: 44px;
-      height: 50px;
-    }
-
-    /* Level 1: Brand */
-    .brand-name {
-      font-size: 2.5rem;
+    .product-brand {
+      font-size: 2.75rem;
       font-weight: 800;
-      color: #ffffff;
-      margin-bottom: 6px;
+      color: #fff;
       letter-spacing: -0.03em;
+      margin-bottom: 8px;
+      position: relative;
     }
 
-    /* Level 2: Product Claim */
     .product-claim {
-      display: inline-block;
-      background: rgba(149, 191, 71, 0.12);
-      color: #95bf47;
-      padding: 8px 18px;
-      border-radius: 24px;
-      font-size: 0.8rem;
+      font-size: 1.15rem;
       font-weight: 600;
-      margin-bottom: 24px;
-      letter-spacing: 0.03em;
-      border: 1px solid rgba(149, 191, 71, 0.2);
+      color: #e5e5e5;
+      margin-bottom: 12px;
+      position: relative;
     }
 
-    /* Level 3: Promise */
-    .tagline {
-      text-align: center;
-      margin-bottom: 0;
+    .product-descriptor {
+      font-size: 0.9rem;
+      color: #737373;
+      font-style: italic;
+      margin-bottom: 28px;
+      position: relative;
     }
 
-    .tagline-headline {
-      color: #e0e0e0;
-      font-size: 1.1rem;
-      font-weight: 500;
-      line-height: 1.5;
-      margin-bottom: 10px;
-    }
-
-    .tagline-subheadline {
-      color: #666;
-      font-size: 0.88rem;
-      font-weight: 400;
-      line-height: 1.65;
-    }
-
-    .stats {
-      display: flex;
-      gap: 12px;
-      justify-content: center;
-      margin-bottom: 32px;
-    }
-
-    .stat {
-      background: #1c1c1c;
-      border: 1px solid #2a2a2a;
-      padding: 16px 24px;
-      border-radius: 12px;
-      min-width: 100px;
-      transition: all 0.2s ease;
-      cursor: pointer;
-    }
-
-    .stat:hover { border-color: #95bf47; }
-
-    .stat.active {
-      background: linear-gradient(135deg, #95bf47 0%, #6a9a2d 100%);
-      border-color: transparent;
-    }
-
-    .stat.active .stat-number,
-    .stat.active .stat-label { color: #0d0d0d; }
-
-    .stat-number {
-      font-size: 1.75rem;
-      font-weight: 700;
-      color: #95bf47;
-    }
-
-    .stat-label {
+    .product-badge {
+      display: inline-block;
+      background: rgba(150, 191, 72, 0.1);
+      border: 1px solid rgba(150, 191, 72, 0.25);
+      color: #96bf48;
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-family: 'JetBrains Mono', monospace;
       font-size: 0.7rem;
-      color: #666;
       font-weight: 500;
-      margin-top: 2px;
-      text-transform: uppercase;
       letter-spacing: 0.05em;
+      position: relative;
     }
 
-    .buttons {
+    .product-actions {
+      margin-top: 32px;
       display: flex;
       gap: 12px;
       justify-content: center;
       flex-wrap: wrap;
+      position: relative;
     }
 
     .btn {
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      padding: 12px 24px;
+      padding: 12px 20px;
       border-radius: 10px;
-      font-size: 0.9rem;
+      font-size: 0.85rem;
       font-weight: 600;
       text-decoration: none;
       transition: all 0.2s ease;
@@ -246,8 +254,8 @@
     }
 
     .btn-primary {
-      background: #95bf47;
-      color: #0d0d0d;
+      background: #96bf48;
+      color: #000;
     }
 
     .btn-primary:hover {
@@ -256,170 +264,72 @@
     }
 
     .btn-secondary {
-      background: #1c1c1c;
-      color: #ccc;
-      border: 1px solid #2a2a2a;
+      background: #1a1a1a;
+      color: #a1a1a1;
+      border: 1px solid #262626;
     }
 
     .btn-secondary:hover {
-      border-color: #444;
+      border-color: #404040;
       color: #fff;
     }
 
-    .install-section {
-      margin-top: 32px;
-      padding-top: 28px;
-      border-top: 1px solid #2a2a2a;
+    .product-footer {
+      margin-top: 36px;
+      padding-top: 24px;
+      border-top: 1px solid #1a1a1a;
+      position: relative;
     }
 
-    .install-label {
-      font-size: 0.7rem;
-      color: #555;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      font-weight: 600;
-      margin-bottom: 12px;
-    }
-
-    .install-code {
-      background: #0d0d0d;
-      border: 1px solid #2a2a2a;
-      color: #95bf47;
-      padding: 14px 20px;
-      border-radius: 10px;
-      font-family: 'SF Mono', 'Monaco', 'Consolas', monospace;
+    .product-footer-text {
       font-size: 0.75rem;
-      overflow-x: auto;
+      color: #525252;
     }
 
-    .install-code::before {
-      content: '$ ';
-      color: #444;
-    }
-
-    .footer {
-      margin-top: 28px;
-      color: #555;
-      font-size: 0.8rem;
-    }
-
-    .footer a {
-      color: #95bf47;
+    .product-footer a {
+      color: #96bf48;
       text-decoration: none;
-      font-weight: 500;
     }
 
-    .footer a:hover { text-decoration: underline; }
-
-    .copyright {
-      margin-top: 8px;
-      font-size: 0.7rem;
-      color: #444;
+    .product-footer a:hover {
+      text-decoration: underline;
     }
 
-    /* Vision Button */
-    .vision-btn {
-      background: transparent;
-      border: 1px solid #333;
-      color: #888;
-      padding: 8px 16px;
-      border-radius: 8px;
-      font-size: 0.75rem;
-      font-weight: 600;
+    /* Stats Row */
+    .stats-row {
+      display: flex;
+      gap: 24px;
+      justify-content: center;
+      margin-top: 24px;
+      position: relative;
+    }
+
+    .stat-item {
+      text-align: center;
       cursor: pointer;
+      padding: 12px 20px;
+      border-radius: 12px;
       transition: all 0.2s ease;
-      margin: 24px 0;
-      letter-spacing: 0.05em;
+      border: 1px solid transparent;
     }
 
-    .vision-btn:hover {
-      border-color: #95bf47;
-      color: #95bf47;
+    .stat-item:hover {
+      background: rgba(150, 191, 72, 0.05);
+      border-color: #262626;
     }
 
-    /* Vision Modal */
-    .vision-modal .modal-content {
-      background: #121212;
-      border: 1px solid #2a2a2a;
-      border-radius: 20px;
-      padding: 48px;
-      max-width: 720px;
-      width: 95%;
-      max-height: 85vh;
-      overflow-y: auto;
-      transform: scale(0.95) translateY(20px);
-      transition: all 0.3s ease;
-    }
-
-    .vision-headline {
+    .stat-number {
       font-size: 1.75rem;
       font-weight: 700;
-      color: #fff;
-      margin-bottom: 8px;
-      letter-spacing: -0.02em;
+      color: #96bf48;
     }
 
-    .vision-subheadline {
-      font-size: 1rem;
-      color: #666;
-      margin-bottom: 48px;
-      font-weight: 400;
-    }
-
-    .vision-section {
-      margin-bottom: 48px;
-    }
-
-    .vision-section:last-child {
-      margin-bottom: 0;
-    }
-
-    .vision-section-label {
-      font-size: 0.65rem;
-      color: #95bf47;
-      text-transform: uppercase;
-      letter-spacing: 0.15em;
-      font-weight: 600;
-      margin-bottom: 12px;
-    }
-
-    .vision-section-title {
-      font-size: 1.1rem;
-      font-weight: 700;
-      color: #e8e8e8;
-      margin-bottom: 16px;
-    }
-
-    .vision-section-text {
-      font-size: 0.95rem;
-      color: #888;
-      line-height: 1.75;
-    }
-
-    .vision-code-block {
-      background: #0a0a0a;
-      border: 1px solid #2a2a2a;
-      border-radius: 10px;
-      padding: 20px 24px;
-      margin-top: 20px;
-      font-family: 'SF Mono', 'Monaco', 'Consolas', monospace;
-      font-size: 0.85rem;
-      color: #95bf47;
-    }
-
-    .vision-code-block::before {
-      content: '$ ';
-      color: #555;
-    }
-
-    .vision-goal-label {
+    .stat-label {
       font-size: 0.7rem;
-      color: #666;
+      color: #525252;
       text-transform: uppercase;
       letter-spacing: 0.1em;
-      font-weight: 600;
-      margin-top: 24px;
-      margin-bottom: 8px;
+      margin-top: 2px;
     }
 
     /* Modal Base */
@@ -446,8 +356,8 @@
     }
 
     .categories-modal .modal-content {
-      background: #161616;
-      border: 1px solid #2a2a2a;
+      background: #0a0a0a;
+      border: 1px solid #262626;
       border-radius: 20px;
       padding: 32px;
       max-width: 600px;
@@ -476,9 +386,9 @@
     }
 
     .modal-close {
-      background: #2a2a2a;
+      background: #1a1a1a;
       border: none;
-      color: #888;
+      color: #737373;
       width: 36px;
       height: 36px;
       border-radius: 10px;
@@ -490,7 +400,7 @@
     }
 
     .modal-close:hover {
-      background: #333;
+      background: #262626;
       color: #fff;
     }
 
@@ -501,8 +411,8 @@
     }
 
     .category-btn {
-      background: #1c1c1c;
-      border: 1px solid #2a2a2a;
+      background: #111;
+      border: 1px solid #262626;
       padding: 14px 12px;
       border-radius: 10px;
       text-align: left;
@@ -511,26 +421,26 @@
     }
 
     .category-btn:hover {
-      border-color: #95bf47;
+      border-color: #96bf48;
       transform: translateY(-2px);
     }
 
     .category-btn .name {
       font-size: 0.8rem;
       font-weight: 600;
-      color: #ccc;
+      color: #d4d4d4;
       margin-bottom: 4px;
     }
 
     .category-btn .count {
       font-size: 0.65rem;
-      color: #95bf47;
+      color: #96bf48;
       font-weight: 500;
     }
 
     .detail-modal .modal-content {
-      background: #161616;
-      border: 1px solid #2a2a2a;
+      background: #0a0a0a;
+      border: 1px solid #262626;
       border-radius: 20px;
       max-width: 900px;
       width: 95%;
@@ -543,9 +453,9 @@
 
     .detail-left {
       width: 280px;
-      background: #1a1a1a;
+      background: #111;
       padding: 32px;
-      border-right: 1px solid #2a2a2a;
+      border-right: 1px solid #1a1a1a;
       display: flex;
       flex-direction: column;
     }
@@ -553,7 +463,7 @@
     .detail-category-icon {
       width: 48px;
       height: 48px;
-      background: linear-gradient(135deg, #95bf47 0%, #6a9a2d 100%);
+      background: linear-gradient(135deg, #96bf48 0%, #7a9e3a 100%);
       border-radius: 12px;
       display: flex;
       align-items: center;
@@ -571,16 +481,16 @@
 
     .detail-category-desc {
       font-size: 0.9rem;
-      color: #888;
+      color: #737373;
       line-height: 1.6;
       margin-bottom: 24px;
       flex: 1;
     }
 
     .detail-back {
-      background: #2a2a2a;
+      background: #1a1a1a;
       border: none;
-      color: #ccc;
+      color: #a1a1a1;
       padding: 12px 16px;
       border-radius: 10px;
       font-size: 0.85rem;
@@ -593,7 +503,7 @@
     }
 
     .detail-back:hover {
-      background: #333;
+      background: #262626;
       color: #fff;
     }
 
@@ -613,7 +523,7 @@
     .detail-title {
       font-size: 0.75rem;
       font-weight: 600;
-      color: #666;
+      color: #525252;
       text-transform: uppercase;
       letter-spacing: 0.1em;
     }
@@ -625,62 +535,39 @@
     }
 
     .tool-item {
-      background: #1c1c1c;
-      border: 1px solid #2a2a2a;
+      background: #111;
+      border: 1px solid #1a1a1a;
       padding: 16px;
       border-radius: 12px;
-      opacity: 0;
-      transform: translateX(20px);
-      animation: slideInRight 0.3s ease forwards;
     }
 
-    .tool-item:nth-child(1) { animation-delay: 0.05s; }
-    .tool-item:nth-child(2) { animation-delay: 0.1s; }
-    .tool-item:nth-child(3) { animation-delay: 0.15s; }
-    .tool-item:nth-child(4) { animation-delay: 0.2s; }
-    .tool-item:nth-child(5) { animation-delay: 0.25s; }
-    .tool-item:nth-child(6) { animation-delay: 0.3s; }
-    .tool-item:nth-child(7) { animation-delay: 0.35s; }
-    .tool-item:nth-child(8) { animation-delay: 0.4s; }
-
-    @keyframes slideInRight {
-      to { opacity: 1; transform: translateX(0); }
-    }
-
-    .tool-name {
+    .tool-item-name {
       font-size: 0.95rem;
       font-weight: 600;
-      color: #95bf47;
+      color: #fff;
       margin-bottom: 6px;
     }
 
-    .tool-desc {
+    .tool-item-desc {
       font-size: 0.8rem;
-      color: #888;
-      line-height: 1.5;
-      margin-bottom: 10px;
+      color: #737373;
+      margin-bottom: 8px;
     }
 
-    .tool-example {
-      background: #0d0d0d;
-      border: 1px solid #2a2a2a;
-      border-radius: 8px;
-      padding: 10px 12px;
-      font-family: 'SF Mono', 'Monaco', 'Consolas', monospace;
+    .tool-item-example {
+      font-family: 'JetBrains Mono', monospace;
       font-size: 0.7rem;
-      color: #95bf47;
-    }
-
-    .tool-example::before {
-      content: 'Example: ';
-      color: #555;
-    }
-
-    @media (max-width: 1200px) {
-      .tools-column { display: none; }
+      color: #96bf48;
+      background: #0a0a0a;
+      padding: 8px 12px;
+      border-radius: 6px;
     }
 
     @media (max-width: 768px) {
+      .categories-grid {
+        grid-template-columns: 1fr;
+      }
+
       .detail-modal .modal-content {
         flex-direction: column;
       }
@@ -688,103 +575,89 @@
       .detail-left {
         width: 100%;
         border-right: none;
-        border-bottom: 1px solid #2a2a2a;
-        padding: 24px;
-      }
-
-      .categories-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-    }
-
-    @media (max-width: 480px) {
-      .container {
-        padding: 36px 24px;
-        border-radius: 20px;
-      }
-
-      h1 { font-size: 1.6rem; }
-
-      .stats {
-        flex-direction: column;
-        gap: 8px;
-      }
-
-      .stat { width: 100%; }
-
-      .buttons { flex-direction: column; }
-
-      .btn {
-        width: 100%;
-        justify-content: center;
-      }
-
-      .categories-grid {
-        grid-template-columns: 1fr;
+        border-bottom: 1px solid #1a1a1a;
       }
     }
   </style>
 </head>
 <body>
-  <div class="page-wrapper">
-    <div class="tools-column left" id="tools-left">
-      <div class="tools-scroll" id="scroll-left"></div>
-    </div>
+  <div class="mission-control">
+    <!-- Left Column: The Manifesto -->
+    <div class="manifesto">
+      <div class="kicker">The Vision</div>
+      <h1 class="section-title">Native Intelligence</h1>
+      <p class="section-subtitle">Transforming the Shopify Admin for the Agentic Era.</p>
+      <p class="section-text">We are transitioning from a platform that users manage manually into an ecosystem that agents operate autonomously.</p>
 
-    <div class="container">
-      <div class="logo-container">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 109.5 124.5">
-          <path fill="#fff" d="M95.9 23.9c-.1-.6-.6-1-1.1-1-.5 0-9.3-.2-9.3-.2s-7.4-7.2-8.1-7.9c-.7-.7-2.2-.5-2.7-.3 0 0-1.4.4-3.7 1.1-.4-1.3-1-2.8-1.8-4.4-2.6-5-6.5-7.7-11.1-7.7-.3 0-.6 0-1 .1-.1-.2-.3-.3-.4-.5-2-2.2-4.6-3.2-7.7-3.1-6 .2-12 4.5-16.8 12.2-3.4 5.4-6 12.2-6.7 17.5-6.9 2.1-11.7 3.6-11.8 3.7-3.5 1.1-3.6 1.2-4 4.5-.3 2.4-9.5 73.4-9.5 73.4L89 124l17.5-3.8S96 24.5 95.9 23.9zM67.2 16.8l-5.4 1.7c0-1.5-.2-3.4-.6-5.6 2.4.5 4.3 2.2 6 3.9zm-9.1-5.3c.5 2.6.7 5.7.6 8l-10.4 3.2c1-3.9 2.9-7.9 5.2-10.5 1-1.1 2.3-2.2 3.8-2.7.3.7.6 1.4.8 2zm-4.6-4.8c1.2 0 2.3.3 3.2 1-1.4.8-2.8 2-4.1 3.5-3 3.4-5.4 8.6-6.3 13.7l-8.6 2.7c1.7-8 8.3-20.6 15.8-20.9z"/>
-          <path fill="#e8e8e8" d="M94.8 22.9c-.5 0-9.3-.2-9.3-.2s-7.4-7.2-8.1-7.9c-.3-.3-.6-.4-1-.4v109.6l24.1-5.2S96 24.5 95.9 23.9c-.1-.6-.6-1-1.1-1z"/>
-          <path fill="#0d0d0d" d="M58 39.9l-3.8 14.4s-4.2-2-9.2-1.6c-7.3.5-7.4 5.1-7.3 6.2.4 6.5 17.4 7.9 18.4 23.1.7 12-6.4 20.2-16.6 20.9-12.3.8-19.1-6.5-19.1-6.5l2.6-11.1s6.8 5.2 12.3 4.8c3.6-.2 4.9-3.1 4.7-5.2-.5-8.5-14.3-8-15.2-21.8-.8-11.6 6.9-23.4 23.7-24.4 6.5-.5 9.5 1.2 9.5 1.2z"/>
-        </svg>
-      </div>
+      <div class="divider"></div>
 
-      <h1 class="brand-name">Shopify</h1>
-      <span class="product-claim">The Official MCP Server</span>
+      <div class="kicker">Infrastructure</div>
+      <h2 class="subsection-title">The Strategic Layer</h2>
+      <p class="subsection-subtitle">Making Shopify AI-Native.</p>
+      <p class="subsection-text">By exposing 70+ Admin API endpoints directly to LLMs, we provide the raw infrastructure for Claude to securely reason, build, and execute workflows without hallucination.</p>
 
-      <div class="tagline">
-        <div class="tagline-headline">The Definitive Model Context Protocol for Agentic Commerce.</div>
-        <div class="tagline-subheadline">Empower Claude to securely reason, build, and orchestrate store operations with 70+ Admin API tools designed for the agentic future.</div>
-      </div>
+      <div class="divider"></div>
 
-      <button class="vision-btn" onclick="showVision()">The Vision →</button>
+      <div class="kicker">Assurance</div>
+      <h2 class="subsection-title">Enterprise Governance</h2>
+      <p class="subsection-subtitle">Deterministic Execution.</p>
+      <p class="subsection-text">Trust is the currency of the agentic era. This server enforces strict permission boundaries, validating every API call against Shopify's rigorous security schemas to prevent unintended data exposure.</p>
 
-      <div class="stats">
-        <div class="stat" id="tools-stat" onclick="toggleTools()">
-          <div class="stat-number">70</div>
-          <div class="stat-label">Tools</div>
-        </div>
-        <div class="stat" onclick="showCategories()">
-          <div class="stat-number">19</div>
-          <div class="stat-label">Categories</div>
-        </div>
-      </div>
+      <div class="divider"></div>
 
-      <div class="buttons">
-        <a href="https://github.com/guckert-dev/shopify-mcp-server" class="btn btn-primary">
-          <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61-.546-1.387-1.333-1.756-1.333-1.756-1.09-.745.083-.73.083-.73 1.205.085 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.42-1.305.762-1.604-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.605-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 21.795 24 17.295 24 12c0-6.63-5.37-12-12-12"/></svg>
-          GitHub
-        </a>
-        <a href="/.well-known/mcp.json" class="btn btn-secondary">
-          <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
-          Manifest
-        </a>
-      </div>
+      <div class="kicker">The Standard</div>
+      <h2 class="subsection-title">Developer Adoption</h2>
+      <p class="subsection-subtitle">The Missing Link.</p>
+      <p class="subsection-text">E-commerce APIs are siloed; this server bridges the gap. It is the standardized toolset for developers to debug, manage, and analyze using natural language.</p>
 
-      <div class="install-section">
-        <div class="install-label">Quick Install</div>
-        <div class="install-code">npx @anthropic-ai/claude-code mcp add github:guckert-dev/shopify-mcp-server</div>
-      </div>
-
-      <div class="footer">
-        Built by <a href="https://x.com/GuckertTravis">LeMay</a>
-        <div class="copyright">© 2026 LeMay</div>
+      <div class="goal-label">Goal</div>
+      <div class="terminal-block">
+        <span class="terminal-prompt">$ </span><span class="terminal-command">npx @anthropic-ai/claude-code mcp add shopify</span>
       </div>
     </div>
 
-    <div class="tools-column right" id="tools-right">
-      <div class="tools-scroll" id="scroll-right"></div>
+    <!-- Right Column: The Product -->
+    <div class="product-showcase">
+      <div class="product-card">
+        <div class="product-logo">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 109.5 124.5">
+            <path fill="#fff" d="M95.9 23.9c-.1-.6-.6-1-1.1-1-.5 0-9.3-.2-9.3-.2s-7.4-7.2-8.1-7.9c-.7-.7-2.2-.5-2.7-.3 0 0-1.4.4-3.7 1.1-.4-1.3-1-2.8-1.8-4.4-2.6-5-6.5-7.7-11.1-7.7-.3 0-.6 0-1 .1-.1-.2-.3-.3-.4-.5-2-2.2-4.6-3.2-7.7-3.1-6 .2-12 4.5-16.8 12.2-3.4 5.4-6 12.2-6.7 17.5-6.9 2.1-11.7 3.6-11.8 3.7-3.5 1.1-3.6 1.2-4 4.5-.3 2.4-9.5 73.4-9.5 73.4L89 124l17.5-3.8S96 24.5 95.9 23.9zM67.2 16.8l-5.4 1.7c0-1.5-.2-3.4-.6-5.6 2.4.5 4.3 2.2 6 3.9zm-9.1-5.3c.5 2.6.7 5.7.6 8l-10.4 3.2c1-3.9 2.9-7.9 5.2-10.5 1-1.1 2.3-2.2 3.8-2.7.3.7.6 1.4.8 2zm-4.6-4.8c1.2 0 2.3.3 3.2 1-1.4.8-2.8 2-4.1 3.5-3 3.4-5.4 8.6-6.3 13.7l-8.6 2.7c1.7-8 8.3-20.6 15.8-20.9z"/>
+            <path fill="#e8e8e8" d="M94.8 22.9c-.5 0-9.3-.2-9.3-.2s-7.4-7.2-8.1-7.9c-.3-.3-.6-.4-1-.4v109.6l24.1-5.2S96 24.5 95.9 23.9c-.1-.6-.6-1-1.1-1z"/>
+            <path fill="#000" d="M58 39.9l-3.8 14.4s-4.2-2-9.2-1.6c-7.3.5-7.4 5.1-7.3 6.2.4 6.5 17.4 7.9 18.4 23.1.7 12-6.4 20.2-16.6 20.9-12.3.8-19.1-6.5-19.1-6.5l2.6-11.1s6.8 5.2 12.3 4.8c3.6-.2 4.9-3.1 4.7-5.2-.5-8.5-14.3-8-15.2-21.8-.8-11.6 6.9-23.4 23.7-24.4 6.5-.5 9.5 1.2 9.5 1.2z"/>
+          </svg>
+        </div>
+
+        <div class="product-brand">Shopify</div>
+        <div class="product-claim">The Official MCP Server</div>
+        <div class="product-descriptor">The Definitive Model Context Protocol for Agentic Commerce</div>
+        <div class="product-badge">v1.0 · ENTERPRISE READY</div>
+
+        <div class="stats-row">
+          <div class="stat-item" onclick="showCategories()">
+            <div class="stat-number">70</div>
+            <div class="stat-label">Tools</div>
+          </div>
+          <div class="stat-item" onclick="showCategories()">
+            <div class="stat-number">19</div>
+            <div class="stat-label">Categories</div>
+          </div>
+        </div>
+
+        <div class="product-actions">
+          <a href="https://github.com/guckert-dev/shopify-mcp-server" class="btn btn-primary">
+            <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61-.546-1.387-1.333-1.756-1.333-1.756-1.09-.745.083-.73.083-.73 1.205.085 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.42-1.305.762-1.604-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.605-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 21.795 24 17.295 24 12c0-6.63-5.37-12-12-12"/></svg>
+            GitHub
+          </a>
+          <a href="/.well-known/mcp.json" class="btn btn-secondary">
+            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+            Manifest
+          </a>
+        </div>
+
+        <div class="product-footer">
+          <div class="product-footer-text">Built by <a href="https://x.com/GuckertTravis">LeMay</a> · © 2026</div>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -825,280 +698,176 @@
     </div>
   </div>
 
-  <!-- Vision Modal -->
-  <div class="modal vision-modal" id="visionModal" onclick="closeModal(event, 'visionModal')">
-    <div class="modal-content" onclick="event.stopPropagation()">
-      <div class="modal-header">
-        <div></div>
-        <button class="modal-close" onclick="closeModal(null, 'visionModal')">
-          <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 6L6 18M6 6l12 12"/></svg>
-        </button>
-      </div>
-
-      <div class="vision-headline">The Vision: Native Intelligence</div>
-      <div class="vision-subheadline">Transforming the Shopify Admin for the Agentic Era.</div>
-
-      <div class="vision-section">
-        <div class="vision-section-label">Section 1</div>
-        <div class="vision-section-title">The Strategic Infrastructure</div>
-        <div class="vision-section-text">
-          <strong style="color: #ccc;">Making Shopify the First AI-Native Commerce Platform</strong>
-          <br><br>
-          We are transitioning from a platform that users manage manually into an ecosystem that agents can operate autonomously.
-          <br><br>
-          To achieve this, we have engineered the definitive Shopify Model Context Protocol (MCP) Server. By exposing over 70 Admin API endpoints directly to LLMs, we provide the infrastructure layer required for Claude (and future agents) to securely reason, build, and execute complex workflows within any merchant's store—without hallucination.
-        </div>
-      </div>
-
-      <div class="vision-section">
-        <div class="vision-section-label">Section 2</div>
-        <div class="vision-section-title">The Developer Standard</div>
-        <div class="vision-section-text">
-          <strong style="color: #ccc;">The Missing Link Between <code style="background: #1a1a1a; padding: 2px 6px; border-radius: 4px; color: #95bf47;">claude-code</code> and Commerce</strong>
-          <br><br>
-          Developers are rapidly adopting agentic workflows, yet e-commerce APIs remain siloed from reasoning engines.
-          <br><br>
-          This server bridges that gap. It offers a standardized, comprehensive toolset that allows developers to debug themes, manage inventory, and analyze data entirely through natural language.
-        </div>
-        <div class="vision-goal-label">Our Goal</div>
-        <div class="vision-section-text">To make the following command the official industry standard for AI-driven commerce development:</div>
-        <div class="vision-code-block">npx @anthropic-ai/claude-code mcp add shopify</div>
-      </div>
-    </div>
-  </div>
-
   <script>
     const categoryData = {
       "Orders": {
         icon: "📦",
-        desc: "Complete order lifecycle management. View, track, and manage customer orders from placement to fulfillment. Handle cancellations, closures, and order status updates seamlessly.",
+        desc: "Complete order lifecycle management. View, track, and manage customer orders from placement to fulfillment.",
         tools: [
           { name: "List Orders", desc: "Retrieve orders with filters for status, date, and customer", example: "\"Show me unfulfilled orders from this week\"" },
-          { name: "Get Order Details", desc: "Fetch complete order information including line items, customer, and shipping", example: "\"Get details for order #1042\"" },
+          { name: "Get Order Details", desc: "Fetch complete order information including line items and shipping", example: "\"Get details for order #1042\"" },
           { name: "Cancel Order", desc: "Cancel an order with optional restock and refund handling", example: "\"Cancel order #1042 and restock items\"" },
           { name: "Close Order", desc: "Mark an order as closed when complete", example: "\"Close order #1042\"" }
         ]
       },
       "Products": {
         icon: "🏷️",
-        desc: "Full product catalog control. Create, update, and manage your entire product inventory including variants, pricing, and metadata.",
+        desc: "Full product catalog control. Create, update, and manage your entire product inventory.",
         tools: [
           { name: "List Products", desc: "Browse products with search and filtering", example: "\"Show all products under $50\"" },
           { name: "Get Product", desc: "Fetch complete product details with variants", example: "\"Get details for SKU ABC-123\"" },
           { name: "Create Product", desc: "Add new products with variants and images", example: "\"Create a new t-shirt product\"" },
           { name: "Update Product", desc: "Modify product details, pricing, or status", example: "\"Update price to $29.99\"" },
-          { name: "Delete Product", desc: "Remove a product from the catalog", example: "\"Delete discontinued product\"" },
-          { name: "Get Variants", desc: "List all variants for a product", example: "\"Show all size options\"" },
-          { name: "Update Variant", desc: "Modify variant pricing or inventory", example: "\"Update Large variant price\"" }
+          { name: "Delete Product", desc: "Remove a product from the catalog", example: "\"Delete discontinued product\"" }
         ]
       },
       "Customers": {
         icon: "👥",
-        desc: "Customer relationship management. Access customer profiles, purchase history, and contact information. Search and segment your customer base effectively.",
+        desc: "Customer relationship management. Access and manage customer profiles and data.",
         tools: [
-          { name: "List Customers", desc: "Browse customers with filters", example: "\"Show customers from California\"" },
-          { name: "Get Customer", desc: "Fetch complete customer profile", example: "\"Get customer by email\"" },
-          { name: "Search Customers", desc: "Find customers by name, email, or phone", example: "\"Find john@example.com\"" }
+          { name: "List Customers", desc: "Browse and search customer records", example: "\"Find customers from New York\"" },
+          { name: "Get Customer", desc: "Fetch detailed customer information", example: "\"Get profile for customer #123\"" },
+          { name: "Create Customer", desc: "Add new customer records", example: "\"Create customer john@email.com\"" },
+          { name: "Update Customer", desc: "Modify customer information", example: "\"Update shipping address\"" }
         ]
       },
       "Inventory": {
         icon: "📊",
-        desc: "Real-time inventory tracking across all locations. Adjust stock levels, set alerts, and manage multi-location inventory with precision.",
+        desc: "Stock level management across locations. Track and adjust inventory in real-time.",
         tools: [
-          { name: "Get Inventory Levels", desc: "Check stock across locations", example: "\"Show inventory for SKU ABC-123\"" },
-          { name: "Adjust Inventory", desc: "Add or remove stock quantities", example: "\"Add 50 units to warehouse\"" },
-          { name: "Set Inventory", desc: "Set exact inventory count", example: "\"Set stock to 100 units\"" },
-          { name: "Get Locations", desc: "List all inventory locations", example: "\"Show all warehouse locations\"" }
+          { name: "Get Inventory Levels", desc: "Check stock quantities across locations", example: "\"What's the stock level for SKU-001?\"" },
+          { name: "Adjust Inventory", desc: "Increase or decrease stock quantities", example: "\"Add 50 units to warehouse\"" },
+          { name: "Set Inventory", desc: "Set exact inventory quantities", example: "\"Set stock to 100 units\"" }
         ]
       },
       "Fulfillments": {
         icon: "🚚",
-        desc: "Streamline order fulfillment. Create shipments, update tracking information, and manage the delivery process from warehouse to customer.",
+        desc: "Shipping and fulfillment operations. Create and track order fulfillments.",
         tools: [
-          { name: "Get Fulfillment Orders", desc: "View orders ready for fulfillment", example: "\"Show unfulfilled orders\"" },
-          { name: "Create Fulfillment", desc: "Mark items as shipped with tracking", example: "\"Ship order with UPS tracking\"" },
-          { name: "Update Tracking", desc: "Update shipment tracking info", example: "\"Add tracking number\"" }
+          { name: "Create Fulfillment", desc: "Fulfill orders with tracking information", example: "\"Ship order #1042 via FedEx\"" },
+          { name: "Get Fulfillment", desc: "Check fulfillment status and details", example: "\"Get shipping status for order #1042\"" },
+          { name: "Cancel Fulfillment", desc: "Cancel a pending fulfillment", example: "\"Cancel shipment for order #1042\"" }
         ]
       },
       "Discounts": {
-        icon: "💸",
-        desc: "Powerful discount and promotion engine. Create percentage or fixed-amount discounts, set conditions, and drive sales with targeted offers.",
+        icon: "🎫",
+        desc: "Promotional pricing management. Create and manage discount codes and rules.",
         tools: [
-          { name: "Create Discount Code", desc: "Generate new discount codes", example: "\"Create 20% off code SAVE20\"" },
-          { name: "List Discounts", desc: "View all active discounts", example: "\"Show active discount codes\"" },
-          { name: "Delete Discount", desc: "Remove a discount code", example: "\"Delete expired SUMMER sale\"" }
-        ]
-      },
-      "Collections": {
-        icon: "📁",
-        desc: "Organize products into collections. Create smart or manual collections to help customers browse and discover products.",
-        tools: [
-          { name: "List Collections", desc: "Browse all product collections", example: "\"Show all collections\"" },
-          { name: "Get Collection", desc: "Fetch collection details and products", example: "\"Get Summer Sale collection\"" },
-          { name: "Create Collection", desc: "Create new product collection", example: "\"Create New Arrivals collection\"" },
-          { name: "Collection Products", desc: "Manage products in a collection", example: "\"Add product to Featured\"" }
-        ]
-      },
-      "Draft Orders": {
-        icon: "📝",
-        desc: "Create quotes and invoices. Build orders manually for phone orders, B2B deals, or custom pricing scenarios before converting to real orders.",
-        tools: [
-          { name: "List Drafts", desc: "View all draft orders", example: "\"Show pending quotes\"" },
-          { name: "Get Draft", desc: "Fetch draft order details", example: "\"Get draft #D-1001\"" },
-          { name: "Create Draft", desc: "Create a new draft order", example: "\"Create quote for customer\"" },
-          { name: "Complete Draft", desc: "Convert draft to real order", example: "\"Convert draft to order\"" },
-          { name: "Delete Draft", desc: "Remove a draft order", example: "\"Delete abandoned draft\"" }
+          { name: "List Price Rules", desc: "View all discount rules", example: "\"Show active discount campaigns\"" },
+          { name: "Create Price Rule", desc: "Set up new discount rules", example: "\"Create 20% off sale\"" },
+          { name: "Create Discount Code", desc: "Generate discount codes", example: "\"Create code SAVE20\"" }
         ]
       },
       "Marketing": {
         icon: "📣",
-        desc: "Marketing campaign management. Track campaigns, manage sales channels, and analyze marketing performance across all touchpoints.",
+        desc: "Marketing campaign tools. Manage promotional events and campaigns.",
         tools: [
-          { name: "List Campaigns", desc: "View marketing campaigns", example: "\"Show active campaigns\"" },
-          { name: "Create Campaign", desc: "Launch new marketing campaign", example: "\"Create holiday campaign\"" },
-          { name: "Delete Campaign", desc: "Remove a campaign", example: "\"Delete old campaign\"" },
-          { name: "List Activities", desc: "View marketing activities", example: "\"Show recent activities\"" },
-          { name: "Get Channels", desc: "List sales channels", example: "\"Show connected channels\"" },
-          { name: "Publish Product", desc: "Publish to sales channel", example: "\"Publish to Online Store\"" },
-          { name: "Unpublish Product", desc: "Remove from channel", example: "\"Hide from POS\"" },
-          { name: "Get Engagements", desc: "View marketing metrics", example: "\"Show email open rates\"" }
+          { name: "List Marketing Events", desc: "View marketing activities", example: "\"Show upcoming campaigns\"" },
+          { name: "Create Marketing Event", desc: "Set up new marketing campaigns", example: "\"Create summer sale event\"" }
         ]
       },
       "Analytics": {
         icon: "📈",
-        desc: "Data-driven insights for your store. Access sales analytics, forecast trends, and analyze conversion funnels to optimize performance.",
+        desc: "Business intelligence and reporting. Access sales data and performance metrics.",
         tools: [
-          { name: "Store Analytics", desc: "Overall store performance metrics", example: "\"Show this month's revenue\"" },
-          { name: "Sales Forecast", desc: "Project future sales trends", example: "\"Forecast Q4 sales\"" },
-          { name: "Conversion Funnel", desc: "Analyze checkout conversion", example: "\"Show cart abandonment rate\"" },
-          { name: "Product Performance", desc: "Best and worst sellers", example: "\"Show top 10 products\"" }
-        ]
-      },
-      "Webhooks": {
-        icon: "🔗",
-        desc: "Event-driven integrations. Set up webhooks to receive real-time notifications when orders, products, or customers change.",
-        tools: [
-          { name: "List Webhooks", desc: "View configured webhooks", example: "\"Show all webhooks\"" },
-          { name: "Create Webhook", desc: "Set up new event webhook", example: "\"Notify on new orders\"" },
-          { name: "Delete Webhook", desc: "Remove a webhook", example: "\"Delete old webhook\"" }
-        ]
-      },
-      "Metafields": {
-        icon: "🔧",
-        desc: "Custom data storage. Add custom fields to products, customers, or orders for specialized data that Shopify doesn't track by default.",
-        tools: [
-          { name: "Get Metafields", desc: "Retrieve custom field data", example: "\"Get product warranty info\"" },
-          { name: "Set Metafield", desc: "Create or update custom field", example: "\"Set custom sizing chart\"" },
-          { name: "Delete Metafield", desc: "Remove a custom field", example: "\"Delete old metafield\"" }
-        ]
-      },
-      "B2B": {
-        icon: "🏢",
-        desc: "Business-to-business commerce (Shopify Plus). Manage company accounts, custom price lists, and wholesale customer relationships.",
-        tools: [
-          { name: "List Companies", desc: "Browse B2B company accounts", example: "\"Show wholesale customers\"" },
-          { name: "Get Company", desc: "Fetch company details", example: "\"Get Acme Corp profile\"" },
-          { name: "Create Company", desc: "Add new B2B company", example: "\"Create wholesale account\"" },
-          { name: "List Price Lists", desc: "View custom pricing tiers", example: "\"Show volume discounts\"" }
-        ]
-      },
-      "Gift Cards": {
-        icon: "🎁",
-        desc: "Gift card management (Shopify Plus). Issue, track, and manage gift cards as an additional revenue stream and customer loyalty tool.",
-        tools: [
-          { name: "List Gift Cards", desc: "View all gift cards", example: "\"Show active gift cards\"" },
-          { name: "Get Gift Card", desc: "Fetch gift card details", example: "\"Check balance on card\"" },
-          { name: "Create Gift Card", desc: "Issue new gift card", example: "\"Create $50 gift card\"" },
-          { name: "Disable Gift Card", desc: "Deactivate a gift card", example: "\"Disable stolen card\"" }
-        ]
-      },
-      "Bulk Ops": {
-        icon: "⚡",
-        desc: "Mass operations for efficiency. Update prices, content, or settings across hundreds of products simultaneously.",
-        tools: [
-          { name: "Bulk Update Prices", desc: "Mass price adjustments", example: "\"Increase all prices by 10%\"" },
-          { name: "Bulk Update Content", desc: "Mass update titles/descriptions", example: "\"Update all SEO titles\"" },
-          { name: "Collection Pricing", desc: "Adjust prices by collection", example: "\"Sale price entire collection\"" },
-          { name: "Price Analysis", desc: "Analyze pricing strategy", example: "\"Find underpriced products\"" },
-          { name: "Generate Social Content", desc: "Create social media posts", example: "\"Generate Instagram posts\"" }
-        ]
-      },
-      "Automation": {
-        icon: "🤖",
-        desc: "Automated workflows and triggers. Set up abandoned cart recovery, customer tagging, and automated marketing campaigns.",
-        tools: [
-          { name: "Create Recovery Discount", desc: "Abandoned cart incentive", example: "\"10% off cart recovery\"" },
-          { name: "Update Email Consent", desc: "Manage email preferences", example: "\"Update marketing consent\"" },
-          { name: "Update Customer Tags", desc: "Auto-tag customers", example: "\"Tag VIP customers\"" },
-          { name: "Create Price Rule", desc: "Set up discount rules", example: "\"Buy 2 get 1 free\"" },
-          { name: "Win-Back Campaign", desc: "Re-engage lapsed customers", example: "\"Target inactive 90+ days\"" }
-        ]
-      },
-      "Social": {
-        icon: "📱",
-        desc: "Social media integration. Generate content, log marketing activities, and track performance across social platforms.",
-        tools: [
-          { name: "Create Social Campaign", desc: "Multi-platform campaign", example: "\"Launch Instagram campaign\"" },
-          { name: "Log Marketing Activity", desc: "Track marketing actions", example: "\"Log Facebook ad spend\"" },
-          { name: "Analyze Marketing Performance", desc: "ROI by channel", example: "\"Compare channel ROI\"" }
-        ]
-      },
-      "Refunds": {
-        icon: "💰",
-        desc: "Refund processing. Calculate and process refunds with proper inventory restocking and payment reversals.",
-        tools: [
-          { name: "Calculate Refund", desc: "Preview refund amounts", example: "\"Calculate refund for return\"" },
-          { name: "Create Refund", desc: "Process the refund", example: "\"Refund $49.99 to customer\"" }
+          { name: "Get Sales Report", desc: "Revenue and sales analytics", example: "\"Show last month's revenue\"" },
+          { name: "Get Traffic Report", desc: "Visitor and conversion data", example: "\"How many visitors this week?\"" }
         ]
       },
       "Shop": {
         icon: "🏪",
-        desc: "Store configuration and settings. Access store information, policies, and configuration details.",
+        desc: "Store configuration and settings. Manage your shop's core details.",
         tools: [
-          { name: "Get Shop Info", desc: "Retrieve store details", example: "\"Show store settings\"" }
+          { name: "Get Shop Info", desc: "Retrieve store configuration", example: "\"What's my store's currency?\"" }
+        ]
+      },
+      "Metafields": {
+        icon: "🔧",
+        desc: "Custom data storage. Manage metafields for extended functionality.",
+        tools: [
+          { name: "List Metafields", desc: "View custom data fields", example: "\"Show product metafields\"" },
+          { name: "Create Metafield", desc: "Add custom data", example: "\"Add custom field to product\"" },
+          { name: "Update Metafield", desc: "Modify custom data", example: "\"Update metafield value\"" }
+        ]
+      },
+      "Webhooks": {
+        icon: "🔔",
+        desc: "Event notification management. Configure real-time event webhooks.",
+        tools: [
+          { name: "List Webhooks", desc: "View configured webhooks", example: "\"Show all webhooks\"" },
+          { name: "Create Webhook", desc: "Set up new webhook", example: "\"Create order webhook\"" },
+          { name: "Delete Webhook", desc: "Remove a webhook", example: "\"Delete webhook #123\"" }
+        ]
+      },
+      "Shipping": {
+        icon: "✈️",
+        desc: "Shipping configuration. Manage shipping zones and rates.",
+        tools: [
+          { name: "List Shipping Zones", desc: "View shipping regions", example: "\"Show shipping zones\"" },
+          { name: "Get Carrier Services", desc: "View available carriers", example: "\"List carrier services\"" }
+        ]
+      },
+      "Locations": {
+        icon: "📍",
+        desc: "Multi-location management. Handle inventory across locations.",
+        tools: [
+          { name: "List Locations", desc: "View all store locations", example: "\"Show all warehouses\"" },
+          { name: "Get Location", desc: "Get location details", example: "\"Get NYC store info\"" }
+        ]
+      },
+      "Collections": {
+        icon: "📁",
+        desc: "Product organization. Create and manage product collections.",
+        tools: [
+          { name: "List Collections", desc: "View product collections", example: "\"Show all collections\"" },
+          { name: "Create Collection", desc: "Add new collection", example: "\"Create Summer collection\"" },
+          { name: "Update Collection", desc: "Modify collection", example: "\"Update collection image\"" }
+        ]
+      },
+      "Pages": {
+        icon: "📄",
+        desc: "Content management. Create and edit store pages.",
+        tools: [
+          { name: "List Pages", desc: "View all pages", example: "\"Show store pages\"" },
+          { name: "Create Page", desc: "Add new page", example: "\"Create About page\"" },
+          { name: "Update Page", desc: "Edit page content", example: "\"Update FAQ page\"" }
+        ]
+      },
+      "Blogs": {
+        icon: "✍️",
+        desc: "Blog management. Handle blog posts and articles.",
+        tools: [
+          { name: "List Blogs", desc: "View all blogs", example: "\"Show blogs\"" },
+          { name: "List Articles", desc: "View blog posts", example: "\"Show recent articles\"" },
+          { name: "Create Article", desc: "Write new post", example: "\"Create blog post\"" }
+        ]
+      },
+      "Redirects": {
+        icon: "↪️",
+        desc: "URL redirect management. Handle URL redirections.",
+        tools: [
+          { name: "List Redirects", desc: "View URL redirects", example: "\"Show all redirects\"" },
+          { name: "Create Redirect", desc: "Add new redirect", example: "\"Redirect old URL\"" }
+        ]
+      },
+      "ScriptTags": {
+        icon: "📜",
+        desc: "JavaScript injection. Manage storefront scripts.",
+        tools: [
+          { name: "List Script Tags", desc: "View injected scripts", example: "\"Show script tags\"" },
+          { name: "Create Script Tag", desc: "Add new script", example: "\"Add tracking script\"" }
+        ]
+      },
+      "Themes": {
+        icon: "🎨",
+        desc: "Theme management. Access and modify store themes.",
+        tools: [
+          { name: "List Themes", desc: "View installed themes", example: "\"Show all themes\"" },
+          { name: "Get Theme", desc: "Get theme details", example: "\"Get active theme\"" },
+          { name: "List Assets", desc: "View theme files", example: "\"Show theme assets\"" }
         ]
       }
     };
-
-    // Build allTools for scrolling columns
-    const allTools = [];
-    Object.entries(categoryData).forEach(([category, data]) => {
-      data.tools.forEach(tool => {
-        allTools.push({ category, name: tool.name });
-      });
-    });
-
-    let toolsVisible = false;
-
-    function toggleTools() {
-      const stat = document.getElementById('tools-stat');
-      const leftCol = document.getElementById('tools-left');
-      const rightCol = document.getElementById('tools-right');
-      toolsVisible = !toolsVisible;
-      if (toolsVisible) {
-        stat.classList.add('active');
-        leftCol.classList.add('visible');
-        rightCol.classList.add('visible');
-      } else {
-        stat.classList.remove('active');
-        leftCol.classList.remove('visible');
-        rightCol.classList.remove('visible');
-      }
-    }
-
-    function createToolCards(containerId) {
-      const container = document.getElementById(containerId);
-      const toolsToShow = [...allTools, ...allTools];
-      toolsToShow.forEach((tool) => {
-        const card = document.createElement('div');
-        card.className = 'tool-card';
-        card.innerHTML = `
-          <div class="tool-category">${tool.category}</div>
-          <div class="tool-name">${tool.name}</div>
-        `;
-        container.appendChild(card);
-      });
-    }
 
     function showCategories() {
       const grid = document.getElementById('categoriesGrid');
@@ -1118,10 +887,6 @@
       document.getElementById('categoriesModal').classList.add('visible');
     }
 
-    function showVision() {
-      document.getElementById('visionModal').classList.add('visible');
-    }
-
     function showCategoryDetail(name) {
       const data = categoryData[name];
 
@@ -1133,14 +898,14 @@
       toolsList.innerHTML = '';
 
       data.tools.forEach(tool => {
-        const div = document.createElement('div');
-        div.className = 'tool-item';
-        div.innerHTML = `
-          <div class="tool-name">${tool.name}</div>
-          <div class="tool-desc">${tool.desc}</div>
-          <div class="tool-example">${tool.example}</div>
+        const item = document.createElement('div');
+        item.className = 'tool-item';
+        item.innerHTML = `
+          <div class="tool-item-name">${tool.name}</div>
+          <div class="tool-item-desc">${tool.desc}</div>
+          <div class="tool-item-example">${tool.example}</div>
         `;
-        toolsList.appendChild(div);
+        toolsList.appendChild(item);
       });
 
       document.getElementById('categoriesModal').classList.remove('visible');
@@ -1149,24 +914,13 @@
 
     function backToCategories() {
       document.getElementById('detailModal').classList.remove('visible');
-      setTimeout(() => showCategories(), 100);
+      document.getElementById('categoriesModal').classList.add('visible');
     }
 
-    function closeModal(e, id) {
-      if (e && e.target !== e.currentTarget) return;
-      document.getElementById(id).classList.remove('visible');
+    function closeModal(event, modalId) {
+      if (event && event.target !== event.currentTarget) return;
+      document.getElementById(modalId).classList.remove('visible');
     }
-
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') {
-        document.getElementById('categoriesModal').classList.remove('visible');
-        document.getElementById('detailModal').classList.remove('visible');
-      }
-    });
-
-    // Initialize scrolling tool cards
-    createToolCards('scroll-left');
-    createToolCards('scroll-right');
   </script>
 </body>
 </html>

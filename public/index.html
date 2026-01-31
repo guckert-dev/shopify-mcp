@@ -113,6 +113,45 @@
       margin-bottom: 4px;
     }
 
+    /* Deep Dive Trigger */
+    .subsection-header {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      transition: all 0.25s ease;
+    }
+
+    .subsection-header:hover .subsection-title {
+      color: #96bf48;
+    }
+
+    .deep-dive-trigger {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 22px;
+      height: 22px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 6px;
+      color: #5a5a5a;
+      transition: all 0.25s ease;
+      flex-shrink: 0;
+    }
+
+    .subsection-header:hover .deep-dive-trigger {
+      background: rgba(150, 191, 72, 0.1);
+      border-color: rgba(150, 191, 72, 0.3);
+      color: #96bf48;
+      transform: translateX(2px);
+    }
+
+    .deep-dive-trigger svg {
+      width: 14px;
+      height: 14px;
+    }
+
     .subsection-subtitle {
       font-size: 0.88rem;
       font-weight: 500;
@@ -406,6 +445,244 @@
       text-transform: uppercase;
       letter-spacing: 0.15em;
       margin-top: 2px;
+    }
+
+    /* Inspector Panel - Deep Dive Mode */
+    .inspector-panel {
+      position: fixed;
+      top: 0;
+      right: 0;
+      width: 420px;
+      height: 100vh;
+      background: rgba(9, 9, 11, 0.98);
+      border-left: 1px solid rgba(39, 39, 42, 0.8);
+      z-index: 100;
+      transform: translateX(100%);
+      transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    .inspector-panel.visible {
+      transform: translateX(0);
+    }
+
+    /* Scanline overlay for inspector */
+    .inspector-panel::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 2px,
+        rgba(255, 255, 255, 0.008) 2px,
+        rgba(255, 255, 255, 0.008) 4px
+      );
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    /* Left accent line */
+    .inspector-panel::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 3px;
+      height: 100%;
+      background: linear-gradient(180deg, #96bf48 0%, rgba(150, 191, 72, 0.3) 50%, transparent 100%);
+    }
+
+    .inspector-header {
+      padding: 28px 28px 20px;
+      border-bottom: 1px solid rgba(39, 39, 42, 0.6);
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      position: relative;
+      z-index: 2;
+    }
+
+    .inspector-header-content {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .inspector-kicker {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.55rem;
+      font-weight: 500;
+      color: #5C6AC4;
+      text-transform: uppercase;
+      letter-spacing: 0.25em;
+    }
+
+    .inspector-title {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: #fff;
+      letter-spacing: -0.02em;
+    }
+
+    .inspector-close {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      color: #5a5a5a;
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.25s ease;
+    }
+
+    .inspector-close:hover {
+      background: rgba(239, 68, 68, 0.1);
+      border-color: rgba(239, 68, 68, 0.3);
+      color: #ef4444;
+    }
+
+    .inspector-body {
+      flex: 1;
+      padding: 28px;
+      overflow-y: auto;
+      position: relative;
+      z-index: 2;
+    }
+
+    .inspector-section {
+      margin-bottom: 28px;
+    }
+
+    .inspector-section:last-child {
+      margin-bottom: 0;
+    }
+
+    .inspector-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.58rem;
+      font-weight: 500;
+      color: #4a4a4a;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      margin-bottom: 10px;
+    }
+
+    .inspector-text {
+      font-size: 0.88rem;
+      color: #a0a0a0;
+      line-height: 1.65;
+    }
+
+    .inspector-text strong {
+      color: #fff;
+      font-weight: 600;
+    }
+
+    .inspector-code {
+      font-family: 'JetBrains Mono', monospace;
+      color: #96bf48;
+      background: rgba(150, 191, 72, 0.08);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 0.82rem;
+    }
+
+    .inspector-detail-block {
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-left: 2px solid #96bf48;
+      border-radius: 0 8px 8px 0;
+      padding: 16px 18px;
+      margin-top: 16px;
+    }
+
+    .inspector-detail-block p {
+      font-size: 0.82rem;
+      color: #8a8a8a;
+      line-height: 1.6;
+      margin-bottom: 12px;
+    }
+
+    .inspector-detail-block p:last-child {
+      margin-bottom: 0;
+    }
+
+    .inspector-list {
+      list-style: none;
+      margin-top: 12px;
+    }
+
+    .inspector-list li {
+      position: relative;
+      padding-left: 20px;
+      margin-bottom: 16px;
+      font-size: 0.85rem;
+      color: #a0a0a0;
+      line-height: 1.5;
+    }
+
+    .inspector-list li::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 8px;
+      width: 8px;
+      height: 8px;
+      background: rgba(150, 191, 72, 0.3);
+      border: 1px solid #96bf48;
+      border-radius: 2px;
+    }
+
+    .inspector-list li strong {
+      color: #fff;
+      font-weight: 600;
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    /* Layout shifts when inspector is open */
+    body.inspector-open .manifesto {
+      opacity: 0.5;
+      transition: opacity 0.5s ease;
+    }
+
+    body.inspector-open .product-showcase {
+      transform: translateX(-60px);
+      transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .product-showcase {
+      transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .manifesto {
+      transition: opacity 0.5s ease;
+    }
+
+    @media (max-width: 1200px) {
+      .inspector-panel {
+        width: 380px;
+      }
+    }
+
+    @media (max-width: 1024px) {
+      .inspector-panel {
+        width: 100%;
+        max-width: 420px;
+      }
+
+      body.inspector-open .product-showcase {
+        transform: none;
+      }
     }
 
     /* Modal Base - Sci-Fi HUD */
@@ -876,21 +1153,36 @@
       <div class="divider"></div>
 
       <div class="kicker">Infrastructure</div>
-      <h2 class="subsection-title">The Strategic Layer</h2>
+      <div class="subsection-header" onclick="openInspector('infrastructure')">
+        <h2 class="subsection-title">The Strategic Layer</h2>
+        <span class="deep-dive-trigger">
+          <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg>
+        </span>
+      </div>
       <p class="subsection-subtitle">Making Shopify AI-Native.</p>
       <p class="subsection-text">By exposing 70+ Admin API endpoints directly to LLMs, we provide the raw infrastructure for Claude to securely reason, build, and execute workflows without hallucination.</p>
 
       <div class="divider"></div>
 
       <div class="kicker">Assurance</div>
-      <h2 class="subsection-title">Enterprise Governance</h2>
+      <div class="subsection-header" onclick="openInspector('assurance')">
+        <h2 class="subsection-title">Enterprise Governance</h2>
+        <span class="deep-dive-trigger">
+          <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg>
+        </span>
+      </div>
       <p class="subsection-subtitle">Deterministic Execution.</p>
       <p class="subsection-text">Trust is the currency of the agentic era. This server enforces strict permission boundaries, validating every API call against Shopify's rigorous security schemas to prevent unintended data exposure.</p>
 
       <div class="divider"></div>
 
       <div class="kicker">Standard</div>
-      <h2 class="subsection-title">Developer Adoption</h2>
+      <div class="subsection-header" onclick="openInspector('standard')">
+        <h2 class="subsection-title">Developer Adoption</h2>
+        <span class="deep-dive-trigger">
+          <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg>
+        </span>
+      </div>
       <p class="subsection-subtitle">The Missing Link.</p>
       <p class="subsection-text">E-commerce APIs are siloed; this server bridges the gap. It is the standardized toolset for developers to debug, manage, and analyze using natural language.</p>
 
@@ -945,6 +1237,22 @@
     </div>
   </div>
 
+  <!-- Technical Inspector Panel -->
+  <div class="inspector-panel" id="inspectorPanel">
+    <div class="inspector-header">
+      <div class="inspector-header-content">
+        <div class="inspector-kicker" id="inspectorKicker">Deep Dive</div>
+        <div class="inspector-title" id="inspectorTitle">Technical Details</div>
+      </div>
+      <button class="inspector-close" onclick="closeInspector()">
+        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M18 6L6 18M6 6l12 12"/></svg>
+      </button>
+    </div>
+    <div class="inspector-body" id="inspectorBody">
+      <!-- Content injected by JavaScript -->
+    </div>
+  </div>
+
   <!-- Categories Modal - System Manifest HUD -->
   <div class="modal categories-modal" id="categoriesModal" onclick="closeModal(event, 'categoriesModal')">
     <div class="modal-content" onclick="event.stopPropagation()">
@@ -986,6 +1294,111 @@
   </div>
 
   <script>
+    // Inspector Panel Content
+    const inspectorContent = {
+      infrastructure: {
+        kicker: 'Infrastructure',
+        title: 'Raw Infrastructure Mapping',
+        content: `
+          <div class="inspector-section">
+            <div class="inspector-label">The Problem</div>
+            <p class="inspector-text">Current LLM implementations rely on <strong>brittle web scraping</strong> or incomplete wrappers. This server changes the paradigm by strictly mapping over <strong>70 Admin API endpoints</strong> to individual MCP Tools.</p>
+          </div>
+          <div class="inspector-section">
+            <div class="inspector-label">Technical Detail</div>
+            <div class="inspector-detail-block">
+              <p>By feeding the LLM <strong>structured, typed API responses</strong> rather than raw HTML, we reduce hallucination rates to near-zero.</p>
+              <p>Claude doesn't "guess" the inventory count; it queries the <span class="inspector-code">InventoryLevel</span> resource directly, receiving the <strong>exact integer</strong> from Shopify's database.</p>
+            </div>
+          </div>
+          <div class="inspector-section">
+            <div class="inspector-label">Key Advantage</div>
+            <p class="inspector-text">Every tool maps 1:1 with Shopify's official REST Admin API. No abstraction layers. No guessing. <strong>Deterministic data flow.</strong></p>
+          </div>
+        `
+      },
+      assurance: {
+        kicker: 'Assurance',
+        title: 'The Containment Protocol',
+        content: `
+          <div class="inspector-section">
+            <div class="inspector-label">The Question</div>
+            <p class="inspector-text">You asked how we enforce boundaries. We utilize a <strong>dual-layer validation system.</strong></p>
+          </div>
+          <div class="inspector-section">
+            <div class="inspector-label">Validation Layers</div>
+            <ul class="inspector-list">
+              <li>
+                <strong>Schema Validation</strong>
+                Every tool call is intercepted. The payload is validated against Shopify's rigid JSON schemas <strong>before the request leaves the local environment.</strong> If the LLM hallucinates an invalid parameter, the server rejects it locally.
+              </li>
+              <li>
+                <strong>Scope Isolation</strong>
+                The server respects the <strong>precise OAuth scopes</strong> of the session. An agent tasked with 'Marketing' physically cannot access 'Orders', enforcing the <strong>principle of least privilege.</strong>
+              </li>
+            </ul>
+          </div>
+          <div class="inspector-section">
+            <div class="inspector-label">Result</div>
+            <div class="inspector-detail-block">
+              <p><strong>Zero unintended data exposure.</strong> The agent operates within a strict containment zone, with every action auditable and reversible.</p>
+            </div>
+          </div>
+        `
+      },
+      standard: {
+        kicker: 'Standard',
+        title: 'Unified Command & Control',
+        content: `
+          <div class="inspector-section">
+            <div class="inspector-label">The Friction</div>
+            <p class="inspector-text">The friction in commerce development is <strong>context switching.</strong> Developers juggle the Admin dashboard, terminal, and docs.</p>
+          </div>
+          <div class="inspector-section">
+            <div class="inspector-label">Technical Detail</div>
+            <div class="inspector-detail-block">
+              <p>This server <strong>unifies the stack.</strong> It allows developers to:</p>
+              <p>→ Query store data (<span class="inspector-code">get_products</span>)</p>
+              <p>→ Debug Liquid render errors</p>
+              <p>→ Analyze sales trends</p>
+              <p>...entirely through <strong>natural language commands</strong> in their IDE.</p>
+            </div>
+          </div>
+          <div class="inspector-section">
+            <div class="inspector-label">The Vision</div>
+            <p class="inspector-text">It turns the Shopify ecosystem into a <strong>programmable REPL.</strong> One interface. Complete control. Natural language as the query layer.</p>
+          </div>
+        `
+      }
+    };
+
+    // Inspector Panel Functions
+    function openInspector(section) {
+      const panel = document.getElementById('inspectorPanel');
+      const content = inspectorContent[section];
+
+      if (content) {
+        document.getElementById('inspectorKicker').textContent = content.kicker;
+        document.getElementById('inspectorTitle').textContent = content.title;
+        document.getElementById('inspectorBody').innerHTML = content.content;
+      }
+
+      panel.classList.add('visible');
+      document.body.classList.add('inspector-open');
+    }
+
+    function closeInspector() {
+      document.getElementById('inspectorPanel').classList.remove('visible');
+      document.body.classList.remove('inspector-open');
+    }
+
+    // Close inspector on Escape key
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        closeInspector();
+      }
+    });
+
     const categoryData = {
       "Orders": {
         icon: "📦",

@@ -18,7 +18,7 @@
         "required": true
       },
       {
-        "name": "MYSHOPIFY_DOMAIN",
+        "name": "SHOPIFY_SHOP_DOMAIN",
         "description": "Your store domain (e.g., your-store.myshopify.com)",
         "required": true
       }

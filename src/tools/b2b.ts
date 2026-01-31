@@ -23,6 +23,10 @@ export function registerB2BTools(server: McpServer): void {
     "shopify_list_companies",
     {
       description: "List B2B companies (Shopify Plus). Companies represent wholesale/business customers.",
+      annotations: {
+        readOnlyHint: true,
+        destructiveHint: false,
+      },
       inputSchema: z.object({
         query: z.string().optional().describe("Search query to filter companies"),
         first: z.number().min(1).max(100).default(20).describe("Number of companies to retrieve"),
@@ -78,6 +82,10 @@ export function registerB2BTools(server: McpServer): void {
     "shopify_get_company",
     {
       description: "Get detailed company information including contacts and locations (Shopify Plus).",
+      annotations: {
+        readOnlyHint: true,
+        destructiveHint: false,
+      },
       inputSchema: z.object({
         company_id: ShopifyIdSchema.describe("Company ID"),
         format: ResponseFormatSchema,
@@ -141,6 +149,10 @@ export function registerB2BTools(server: McpServer): void {
     "shopify_create_company",
     {
       description: "Create a new B2B company (Shopify Plus).",
+      annotations: {
+        readOnlyHint: false,
+        destructiveHint: true,
+      },
       inputSchema: z.object({
         name: z.string().describe("Company name"),
         external_id: z.string().optional().describe("External ID from ERP/CRM"),
@@ -181,6 +193,10 @@ export function registerB2BTools(server: McpServer): void {
     "shopify_list_price_lists",
     {
       description: "List B2B price lists (Shopify Plus). Price lists define custom pricing for wholesale customers.",
+      annotations: {
+        readOnlyHint: true,
+        destructiveHint: false,
+      },
       inputSchema: z.object({
         first: z.number().min(1).max(100).default(20).describe("Number of price lists to retrieve"),
         after: z.string().optional().describe("Cursor for pagination"),

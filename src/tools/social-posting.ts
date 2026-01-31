@@ -16,29 +16,36 @@ import { ResponseFormatSchema } from "../schemas/common.js";
 
 export function registerSocialPostingTools(server: McpServer): void {
   // Generate complete posting package
-  server.tool(
+  server.registerTool(
     "shopify_prepare_social_campaign",
-    "Generate a complete social media campaign package with content for all platforms, optimized images, and posting instructions for Claude in Chrome.",
     {
-      product_ids: z.array(z.string()).optional().describe("Product IDs to feature"),
-      collection_id: z.string().optional().describe("Collection to promote"),
-      campaign_type: z.enum([
-        "product_launch",
-        "flash_sale",
-        "weekly_feature",
-        "seasonal",
-        "clearance",
-        "back_in_stock",
-      ]).describe("Campaign type"),
-      discount_code: z.string().optional().describe("Discount code to include"),
-      target_platforms: z.array(z.enum(["twitter", "facebook", "instagram", "linkedin"])).optional(),
-      schedule: z.object({
-        post_now: z.boolean().optional(),
-        scheduled_time: z.string().optional(),
-      }).optional(),
-      response_format: ResponseFormatSchema,
+      description: "Generate a complete social media campaign package with content for all platforms, optimized images, and posting instructions for Claude in Chrome.",
+      annotations: {
+        readOnlyHint: true,
+        destructiveHint: false,
+      },
+      inputSchema: z.object({
+        product_ids: z.array(z.string()).optional().describe("Product IDs to feature"),
+        collection_id: z.string().optional().describe("Collection to promote"),
+        campaign_type: z.enum([
+          "product_launch",
+          "flash_sale",
+          "weekly_feature",
+          "seasonal",
+          "clearance",
+          "back_in_stock",
+        ]).describe("Campaign type"),
+        discount_code: z.string().optional().describe("Discount code to include"),
+        target_platforms: z.array(z.enum(["twitter", "facebook", "instagram", "linkedin"])).optional(),
+        schedule: z.object({
+          post_now: z.boolean().optional(),
+          scheduled_time: z.string().optional(),
+        }).optional(),
+        response_format: ResponseFormatSchema,
+      }),
     },
-    async ({ product_ids, collection_id, campaign_type, discount_code, target_platforms = ["twitter", "facebook", "instagram"], schedule, response_format = "markdown" }) => {
+    async (args: any) => {
+      const { product_ids, collection_id, campaign_type, discount_code, target_platforms = ["twitter", "facebook", "instagram"], schedule, response_format = "markdown" } = args;
       let products: any[] = [];
       let collectionTitle = "";
 
@@ -249,10 +256,15 @@ export function registerSocialPostingTools(server: McpServer): void {
   );
 
   // Store marketing activity log
-  server.tool(
+  server.registerTool(
     "shopify_log_marketing_activity",
-    "Log a marketing activity to Shopify for tracking ROI and attribution.",
     {
+      description: "Log a marketing activity to Shopify for tracking ROI and attribution.",
+      annotations: {
+        readOnlyHint: false,
+        destructiveHint: true,
+      },
+      inputSchema: z.object({
       activity_type: z.enum(["social_post", "email_campaign", "ad", "influencer", "other"]).describe("Type of marketing activity"),
       platform: z.string().describe("Platform (twitter, facebook, email, etc.)"),
       title: z.string().describe("Activity title"),
@@ -262,6 +274,7 @@ export function registerSocialPostingTools(server: McpServer): void {
       utm_medium: z.string().optional().describe("UTM medium"),
       notes: z.string().optional().describe("Additional notes"),
       response_format: ResponseFormatSchema,
+    }),
     },
     async ({ activity_type, platform, title, budget_amount, utm_campaign, utm_source, utm_medium, notes, response_format = "markdown" }) => {
       // Note: Shopify's marketing activities API is limited in GraphQL
@@ -353,12 +366,18 @@ export function registerSocialPostingTools(server: McpServer): void {
   );
 
   // Analyze marketing performance
-  server.tool(
+  server.registerTool(
     "shopify_marketing_performance",
-    "Analyze marketing performance by channel using order attribution data.",
     {
+      description: "Analyze marketing performance by channel using order attribution data.",
+      annotations: {
+        readOnlyHint: false,
+        destructiveHint: true,
+      },
+      inputSchema: z.object({
       days: z.number().optional().describe("Days to analyze (default: 30)"),
       response_format: ResponseFormatSchema,
+    }),
     },
     async ({ days = 30, response_format = "markdown" }) => {
       const startDate = new Date(Date.now() - days * 24 * 60 * 60 * 1000).toISOString();

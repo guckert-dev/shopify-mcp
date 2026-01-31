@@ -74,17 +74,48 @@ const CUSTOMER_ACQUISITION_QUERY = `
   }
 `;
 
+// Input schemas
+const StoreAnalyticsInputSchema = z.object({
+  period_days: z.number().optional().describe("Analysis period in days (default: 30)"),
+  compare_previous: z.boolean().optional().describe("Compare with previous period (default: true)"),
+  response_format: ResponseFormatSchema,
+}).strict();
+
+const ForecastInputSchema = z.object({
+  forecast_months: z.array(z.number()).optional().describe("Months to forecast (default: [1, 3, 6, 12])"),
+  growth_scenario: z.enum(["conservative", "moderate", "aggressive"]).optional().describe("Growth scenario (default: moderate)"),
+  include_seasonality: z.boolean().optional().describe("Account for seasonal patterns (default: true)"),
+  response_format: ResponseFormatSchema,
+}).strict();
+
+const ConversionAnalysisInputSchema = z.object({
+  period_days: z.number().optional().describe("Analysis period in days (default: 30)"),
+  response_format: ResponseFormatSchema,
+}).strict();
+
+const ProductPerformanceInputSchema = z.object({
+  period_days: z.number().optional().describe("Analysis period in days (default: 30)"),
+  top_n: z.number().optional().describe("Number of top/bottom products to show (default: 10)"),
+  response_format: ResponseFormatSchema,
+}).strict();
+
 export function registerAnalyticsTools(server: McpServer): void {
   // Current store traffic and performance
-  server.tool(
+  server.registerTool(
     "shopify_store_analytics",
-    "Get current store performance metrics including orders, revenue, customers, and traffic indicators. Analyzes recent activity to provide insights.",
     {
-      period_days: z.number().optional().describe("Analysis period in days (default: 30)"),
-      compare_previous: z.boolean().optional().describe("Compare with previous period (default: true)"),
-      response_format: ResponseFormatSchema,
+      title: "Get Store Analytics",
+      description: "Get current store performance metrics including orders, revenue, customers, and traffic indicators. Analyzes recent activity to provide insights.",
+      inputSchema: StoreAnalyticsInputSchema,
+      annotations: {
+        readOnlyHint: true,
+        destructiveHint: false,
+        idempotentHint: true,
+        openWorldHint: true,
+      },
     },
-    async ({ period_days = 30, compare_previous = true, response_format = "markdown" }) => {
+    async (params: z.infer<typeof StoreAnalyticsInputSchema>) => {
+      const { period_days = 30, compare_previous = true, response_format = "markdown" } = params;
       const now = new Date();
       const periodStart = new Date(now.getTime() - period_days * 24 * 60 * 60 * 1000);
       const previousPeriodStart = new Date(periodStart.getTime() - period_days * 24 * 60 * 60 * 1000);
@@ -278,16 +309,21 @@ export function registerAnalyticsTools(server: McpServer): void {
   );
 
   // Traffic and revenue forecasting
-  server.tool(
+  server.registerTool(
     "shopify_forecast",
-    "Generate traffic and revenue forecasts based on historical data and growth trends. Projects future performance at 1, 3, 6, and 12 month intervals.",
     {
-      forecast_months: z.array(z.number()).optional().describe("Months to forecast (default: [1, 3, 6, 12])"),
-      growth_scenario: z.enum(["conservative", "moderate", "aggressive"]).optional().describe("Growth scenario (default: moderate)"),
-      include_seasonality: z.boolean().optional().describe("Account for seasonal patterns (default: true)"),
-      response_format: ResponseFormatSchema,
+      title: "Generate Forecast",
+      description: "Generate traffic and revenue forecasts based on historical data and growth trends. Projects future performance at 1, 3, 6, and 12 month intervals.",
+      inputSchema: ForecastInputSchema,
+      annotations: {
+        readOnlyHint: true,
+        destructiveHint: false,
+        idempotentHint: true,
+        openWorldHint: true,
+      },
     },
-    async ({ forecast_months = [1, 3, 6, 12], growth_scenario = "moderate", include_seasonality = true, response_format = "markdown" }) => {
+    async (params: z.infer<typeof ForecastInputSchema>) => {
+      const { forecast_months = [1, 3, 6, 12], growth_scenario = "moderate", include_seasonality = true, response_format = "markdown" } = params;
       // Get historical data for the past 90 days
       const now = new Date();
       const historicalStart = new Date(now.getTime() - 90 * 24 * 60 * 60 * 1000);
@@ -450,14 +486,21 @@ export function registerAnalyticsTools(server: McpServer): void {
   );
 
   // Conversion funnel analysis
-  server.tool(
+  server.registerTool(
     "shopify_conversion_analysis",
-    "Analyze conversion funnel performance including cart abandonment, checkout completion, and customer behavior patterns.",
     {
-      period_days: z.number().optional().describe("Analysis period in days (default: 30)"),
-      response_format: ResponseFormatSchema,
+      title: "Analyze Conversion Funnel",
+      description: "Analyze conversion funnel performance including cart abandonment, checkout completion, and customer behavior patterns.",
+      inputSchema: ConversionAnalysisInputSchema,
+      annotations: {
+        readOnlyHint: true,
+        destructiveHint: false,
+        idempotentHint: true,
+        openWorldHint: true,
+      },
     },
-    async ({ period_days = 30, response_format = "markdown" }) => {
+    async (params: z.infer<typeof ConversionAnalysisInputSchema>) => {
+      const { period_days = 30, response_format = "markdown" } = params;
       const now = new Date();
       const periodStart = new Date(now.getTime() - period_days * 24 * 60 * 60 * 1000);
       const query = `created_at:>=${periodStart.toISOString().split('T')[0]}`;
@@ -595,15 +638,21 @@ export function registerAnalyticsTools(server: McpServer): void {
   );
 
   // Product performance analytics
-  server.tool(
+  server.registerTool(
     "shopify_product_performance",
-    "Analyze product performance including best sellers, underperformers, and inventory velocity to identify opportunities.",
     {
-      period_days: z.number().optional().describe("Analysis period in days (default: 30)"),
-      top_n: z.number().optional().describe("Number of top/bottom products to show (default: 10)"),
-      response_format: ResponseFormatSchema,
+      title: "Analyze Product Performance",
+      description: "Analyze product performance including best sellers, underperformers, and inventory velocity to identify opportunities.",
+      inputSchema: ProductPerformanceInputSchema,
+      annotations: {
+        readOnlyHint: true,
+        destructiveHint: false,
+        idempotentHint: true,
+        openWorldHint: true,
+      },
     },
-    async ({ period_days = 30, top_n = 10, response_format = "markdown" }) => {
+    async (params: z.infer<typeof ProductPerformanceInputSchema>) => {
+      const { period_days = 30, top_n = 10, response_format = "markdown" } = params;
       const now = new Date();
       const periodStart = new Date(now.getTime() - period_days * 24 * 60 * 60 * 1000);
 

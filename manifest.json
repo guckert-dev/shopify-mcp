@@ -1,0 +1,83 @@
+{
+  "manifest_version": "0.3",
+  "name": "shopify-mcp",
+  "display_name": "Shopify Plus",
+  "version": "1.0.0",
+  "description": "Official Shopify Plus MCP Server — 70 tools for store management, automation & analytics",
+  "long_description": "Connect Claude to your Shopify Plus store with 70 powerful tools spanning products, orders, customers, inventory, analytics, fulfillment, discounts, metafields, and more. Full GraphQL Admin API coverage for enterprise e-commerce automation.\n\n## Features\n\n- **Products & Collections**: Create, update, search, and manage your entire catalog\n- **Orders & Fulfillment**: Process orders, create fulfillments, handle refunds\n- **Customers & B2B**: Manage customers, companies, and wholesale pricing\n- **Inventory**: Track and update inventory across locations\n- **Analytics**: Store performance, forecasting, conversion analysis\n- **Marketing**: Discounts, campaigns, social media content generation\n- **Automation**: Bulk operations, scheduled tasks, recovery campaigns\n\n## Requirements\n\n- Shopify Plus store (or Partner development store)\n- Admin API access token with appropriate scopes",
+  "author": {
+    "name": "LeMay",
+    "email": "security@lemay.app",
+    "url": "https://lemay.app"
+  },
+  "icon": "public/icon.svg",
+  "icons": [
+    {
+      "src": "public/icon.svg",
+      "size": "128x128"
+    }
+  ],
+  "homepage": "https://mcp.lemay.app",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/guckert-dev/shopify-mcp"
+  },
+  "documentation": "https://mcp.lemay.app",
+  "support": "https://github.com/guckert-dev/shopify-mcp/issues",
+  "privacy_policies": [
+    "https://mcp.lemay.app/privacy"
+  ],
+  "license": "MIT",
+  "keywords": [
+    "shopify",
+    "shopify-plus",
+    "ecommerce",
+    "e-commerce",
+    "store-management",
+    "automation",
+    "analytics",
+    "inventory",
+    "orders",
+    "products",
+    "customers",
+    "fulfillment",
+    "discounts",
+    "marketing",
+    "b2b",
+    "wholesale"
+  ],
+  "server": {
+    "type": "node",
+    "entry_point": "dist/index.js",
+    "mcp_config": {
+      "command": "node",
+      "args": ["${__dirname}/dist/index.js"],
+      "env": {
+        "SHOPIFY_STORE_URL": "${user_config.store_url}",
+        "SHOPIFY_ACCESS_TOKEN": "${user_config.access_token}"
+      }
+    }
+  },
+  "user_config": {
+    "store_url": {
+      "type": "string",
+      "title": "Shopify Store URL",
+      "description": "Your Shopify store URL (e.g., mystore.myshopify.com)",
+      "required": true
+    },
+    "access_token": {
+      "type": "string",
+      "title": "Admin API Access Token",
+      "description": "Your Shopify Admin API access token. Create one in your Shopify admin under Settings > Apps > Develop apps.",
+      "sensitive": true,
+      "required": true
+    }
+  },
+  "tools_generated": true,
+  "compatibility": {
+    "platforms": ["darwin", "win32", "linux"],
+    "runtimes": {
+      "node": ">=18.0.0"
+    }
+  }
+}

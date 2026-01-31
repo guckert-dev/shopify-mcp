@@ -70,10 +70,15 @@ const PRICE_RULE_CREATE = `
 
 export function registerAutomationTools(server: McpServer): void {
   // Create abandoned cart recovery campaign
-  server.tool(
+  server.registerTool(
     "shopify_create_recovery_discount",
-    "Create a personalized discount code for abandoned cart recovery. Generates unique codes for specific customers.",
     {
+      description: "Create a personalized discount code for abandoned cart recovery. Generates unique codes for specific customers.",
+      annotations: {
+        readOnlyHint: false,
+        destructiveHint: true,
+      },
+      inputSchema: z.object({
       checkout_id: z.string().optional().describe("Abandoned checkout ID"),
       customer_email: z.string().optional().describe("Customer email for personalized code"),
       discount_percent: z.number().optional().describe("Percentage discount (default: 10)"),
@@ -82,6 +87,7 @@ export function registerAutomationTools(server: McpServer): void {
       expires_days: z.number().optional().describe("Days until expiration (default: 7)"),
       code_prefix: z.string().optional().describe("Prefix for generated code"),
       response_format: ResponseFormatSchema,
+    }),
     },
     async ({ checkout_id, customer_email, discount_percent = 10, discount_amount, minimum_purchase, expires_days = 7, code_prefix = "COMEBACK", response_format = "markdown" }) => {
       // Generate unique code
@@ -170,10 +176,15 @@ export function registerAutomationTools(server: McpServer): void {
   );
 
   // Tag customers based on behavior
-  server.tool(
+  server.registerTool(
     "shopify_auto_tag_customers",
-    "Automatically tag customers based on purchase behavior, order history, or custom criteria.",
     {
+      description: "Automatically tag customers based on purchase behavior, order history, or custom criteria.",
+      annotations: {
+        readOnlyHint: false,
+        destructiveHint: true,
+      },
+      inputSchema: z.object({
       criteria: z.enum([
         "high_value",      // Total spent > threshold
         "repeat_buyer",    // Multiple orders
@@ -187,6 +198,7 @@ export function registerAutomationTools(server: McpServer): void {
       custom_tag: z.string().optional().describe("Custom tag to apply (default: based on criteria)"),
       limit: z.number().optional().describe("Maximum customers to tag (default: 50)"),
       response_format: ResponseFormatSchema,
+    }),
     },
     async ({ criteria, threshold_amount = "500", threshold_orders = 3, custom_tag, limit = 50, response_format = "markdown" }) => {
       // Build query based on criteria
@@ -294,10 +306,15 @@ export function registerAutomationTools(server: McpServer): void {
   );
 
   // Analyze and segment customers
-  server.tool(
+  server.registerTool(
     "shopify_segment_analysis",
-    "Analyze customer segments and provide actionable insights for marketing campaigns.",
     {
+      description: "Analyze customer segments and provide actionable insights for marketing campaigns.",
+      annotations: {
+        readOnlyHint: false,
+        destructiveHint: true,
+      },
+      inputSchema: z.object({
       segment_type: z.enum([
         "rfm",           // Recency, Frequency, Monetary
         "lifecycle",     // New, Active, At-risk, Lapsed
@@ -305,6 +322,7 @@ export function registerAutomationTools(server: McpServer): void {
         "engagement",    // Email engagement based
       ]).describe("Type of segmentation analysis"),
       response_format: ResponseFormatSchema,
+    }),
     },
     async ({ segment_type, response_format = "markdown" }) => {
       // Get customer data for analysis
@@ -460,10 +478,15 @@ export function registerAutomationTools(server: McpServer): void {
   );
 
   // Schedule flash sale
-  server.tool(
+  server.registerTool(
     "shopify_create_flash_sale",
-    "Create a time-limited flash sale with automatic start/end dates and discount codes.",
     {
+      description: "Create a time-limited flash sale with automatic start/end dates and discount codes.",
+      annotations: {
+        readOnlyHint: false,
+        destructiveHint: true,
+      },
+      inputSchema: z.object({
       name: z.string().describe("Sale name (e.g., 'Weekend Flash Sale')"),
       collection_id: z.string().optional().describe("Apply to specific collection"),
       product_ids: z.array(z.string()).optional().describe("Apply to specific products"),
@@ -472,6 +495,7 @@ export function registerAutomationTools(server: McpServer): void {
       duration_hours: z.number().describe("Sale duration in hours"),
       usage_limit: z.number().optional().describe("Total usage limit"),
       response_format: ResponseFormatSchema,
+    }),
     },
     async ({ name, collection_id, product_ids, discount_percent, starts_in_hours = 0, duration_hours, usage_limit, response_format = "markdown" }) => {
       const code = name.toUpperCase().replace(/\s+/g, '').substring(0, 10) + Math.random().toString(36).substring(2, 6).toUpperCase();
@@ -548,13 +572,19 @@ export function registerAutomationTools(server: McpServer): void {
   );
 
   // Update product status (publish/unpublish/archive)
-  server.tool(
+  server.registerTool(
     "shopify_bulk_product_status",
-    "Change status for multiple products at once (active, draft, archived).",
     {
+      description: "Change status for multiple products at once (active, draft, archived).",
+      annotations: {
+        readOnlyHint: false,
+        destructiveHint: true,
+      },
+      inputSchema: z.object({
       product_ids: z.array(z.string()).describe("Product IDs to update"),
       status: z.enum(["ACTIVE", "DRAFT", "ARCHIVED"]).describe("New status"),
       response_format: ResponseFormatSchema,
+    }),
     },
     async ({ product_ids, status, response_format = "markdown" }) => {
       const results: any[] = [];

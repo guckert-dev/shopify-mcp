@@ -22,6 +22,10 @@ export function registerGiftCardTools(server: McpServer): void {
   server.registerTool(
     "shopify_list_gift_cards",
     {
+      annotations: {
+        readOnlyHint: true,
+        destructiveHint: false,
+      },
       description: "List gift cards in the store (Shopify Plus). Shows balance, status, and customer info.",
       inputSchema: z.object({
         query: z.string().optional().describe("Search query (e.g., 'enabled:true', 'balance:>0')"),
@@ -78,6 +82,10 @@ export function registerGiftCardTools(server: McpServer): void {
   server.registerTool(
     "shopify_get_gift_card",
     {
+      annotations: {
+        readOnlyHint: true,
+        destructiveHint: false,
+      },
       description: "Get detailed gift card information including transaction history (Shopify Plus).",
       inputSchema: z.object({
         gift_card_id: ShopifyIdSchema.describe("Gift card ID"),
@@ -131,6 +139,10 @@ export function registerGiftCardTools(server: McpServer): void {
   server.registerTool(
     "shopify_create_gift_card",
     {
+      annotations: {
+        readOnlyHint: false,
+        destructiveHint: true,
+      },
       description: "Create a new gift card (Shopify Plus). Returns the gift card code.",
       inputSchema: z.object({
         initial_value: z.number().describe("Gift card value in store currency"),
@@ -175,6 +187,10 @@ export function registerGiftCardTools(server: McpServer): void {
   server.registerTool(
     "shopify_disable_gift_card",
     {
+      annotations: {
+        readOnlyHint: false,
+        destructiveHint: true,
+      },
       description: "Disable a gift card (Shopify Plus). Disabled gift cards cannot be used.",
       inputSchema: z.object({
         gift_card_id: ShopifyIdSchema.describe("Gift card ID"),

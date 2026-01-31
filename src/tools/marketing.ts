@@ -32,6 +32,10 @@ export function registerMarketingTools(server: McpServer): void {
   server.registerTool(
     "shopify_list_marketing_activities",
     {
+      annotations: {
+        readOnlyHint: true,
+        destructiveHint: false,
+      },
       description:
         "List marketing activities (campaigns, ads, posts) across all channels. Shows email campaigns, social media posts, and paid advertising activities.",
       inputSchema: z.object({
@@ -126,6 +130,10 @@ export function registerMarketingTools(server: McpServer): void {
   server.registerTool(
     "shopify_list_abandoned_checkouts",
     {
+      annotations: {
+        readOnlyHint: true,
+        destructiveHint: false,
+      },
       description:
         "List abandoned checkouts - carts that customers started but didn't complete. Essential for recovery marketing campaigns.",
       inputSchema: z.object({
@@ -248,6 +256,10 @@ export function registerMarketingTools(server: McpServer): void {
   server.registerTool(
     "shopify_list_customer_segments",
     {
+      annotations: {
+        readOnlyHint: true,
+        destructiveHint: false,
+      },
       description:
         "List customer segments for targeted marketing. Segments group customers by behavior, purchase history, location, etc.",
       inputSchema: z.object({
@@ -321,6 +333,10 @@ export function registerMarketingTools(server: McpServer): void {
   server.registerTool(
     "shopify_get_segment_members",
     {
+      annotations: {
+        readOnlyHint: true,
+        destructiveHint: false,
+      },
       description:
         "Get customers belonging to a specific segment. Use for targeted marketing campaigns.",
       inputSchema: z.object({
@@ -406,6 +422,10 @@ export function registerMarketingTools(server: McpServer): void {
   server.registerTool(
     "shopify_list_sales_channels",
     {
+      annotations: {
+        readOnlyHint: true,
+        destructiveHint: false,
+      },
       description:
         "List all sales channels (Online Store, Facebook, Instagram, Amazon, etc.) where products can be published.",
       inputSchema: z.object({
@@ -462,6 +482,10 @@ export function registerMarketingTools(server: McpServer): void {
   server.registerTool(
     "shopify_get_product_channels",
     {
+      annotations: {
+        readOnlyHint: true,
+        destructiveHint: false,
+      },
       description:
         "Get which sales channels a product is published to (Online Store, Facebook, Instagram, etc.)",
       inputSchema: z.object({
@@ -523,6 +547,10 @@ export function registerMarketingTools(server: McpServer): void {
   server.registerTool(
     "shopify_publish_product",
     {
+      annotations: {
+        readOnlyHint: false,
+        destructiveHint: true,
+      },
       description:
         "Publish a product to one or more sales channels (Online Store, Facebook, Instagram, etc.)",
       inputSchema: z.object({
@@ -591,6 +619,10 @@ export function registerMarketingTools(server: McpServer): void {
   server.registerTool(
     "shopify_unpublish_product",
     {
+      annotations: {
+        readOnlyHint: false,
+        destructiveHint: true,
+      },
       description: "Remove a product from one or more sales channels",
       inputSchema: z.object({
         product_id: ShopifyIdSchema.describe("Product ID"),

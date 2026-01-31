@@ -45,6 +45,10 @@ export function registerMetafieldTools(server: McpServer): void {
   server.registerTool(
     "shopify_get_metafields",
     {
+      annotations: {
+        readOnlyHint: true,
+        destructiveHint: false,
+      },
       description:
         "Get metafields (custom data) for a product, customer, order, variant, or collection. Metafields store additional information not captured by standard fields.",
       inputSchema: z.object({
@@ -136,6 +140,10 @@ export function registerMetafieldTools(server: McpServer): void {
   server.registerTool(
     "shopify_set_metafield",
     {
+      annotations: {
+        readOnlyHint: false,
+        destructiveHint: true,
+      },
       description:
         "Create or update a metafield on a product, customer, order, variant, or collection. Use for storing custom data like warranty info, supplier codes, internal notes, etc.",
       inputSchema: z.object({
@@ -228,6 +236,10 @@ export function registerMetafieldTools(server: McpServer): void {
   server.registerTool(
     "shopify_set_metafields_bulk",
     {
+      annotations: {
+        readOnlyHint: false,
+        destructiveHint: true,
+      },
       description:
         "Create or update multiple metafields at once. Efficient for batch operations.",
       inputSchema: z.object({

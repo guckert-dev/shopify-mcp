@@ -51,21 +51,28 @@ const PRODUCT_SET_MUTATION = `
 
 export function registerBulkOperationTools(server: McpServer): void {
   // Bulk update product prices
-  server.tool(
+  server.registerTool(
     "shopify_bulk_update_prices",
-    "Update prices for multiple products or variants at once. Supports percentage or fixed amount changes.",
     {
-      updates: z.array(z.object({
-        product_id: z.string().describe("Product ID"),
-        variant_id: z.string().optional().describe("Specific variant ID (optional, updates all variants if not specified)"),
-        new_price: z.string().optional().describe("New price (e.g., '29.99')"),
-        price_change_percent: z.number().optional().describe("Percentage change (e.g., 10 for +10%, -15 for -15%)"),
-        price_change_amount: z.string().optional().describe("Fixed amount change (e.g., '5.00' or '-5.00')"),
-        compare_at_price: z.string().optional().describe("Compare at price for showing discounts"),
-      })).describe("Array of price updates"),
-      response_format: ResponseFormatSchema,
+      description: "Update prices for multiple products or variants at once. Supports percentage or fixed amount changes.",
+      annotations: {
+        readOnlyHint: false,
+        destructiveHint: true,
+      },
+      inputSchema: z.object({
+        updates: z.array(z.object({
+          product_id: z.string().describe("Product ID"),
+          variant_id: z.string().optional().describe("Specific variant ID (optional, updates all variants if not specified)"),
+          new_price: z.string().optional().describe("New price (e.g., '29.99')"),
+          price_change_percent: z.number().optional().describe("Percentage change (e.g., 10 for +10%, -15 for -15%)"),
+          price_change_amount: z.string().optional().describe("Fixed amount change (e.g., '5.00' or '-5.00')"),
+          compare_at_price: z.string().optional().describe("Compare at price for showing discounts"),
+        })).describe("Array of price updates"),
+        response_format: ResponseFormatSchema,
+      }),
     },
-    async ({ updates, response_format = "markdown" }) => {
+    async (args: any) => {
+      const { updates, response_format = "markdown" } = args;
       const results: any[] = [];
 
       for (const update of updates) {
@@ -175,21 +182,28 @@ export function registerBulkOperationTools(server: McpServer): void {
   );
 
   // Bulk update product content (titles, descriptions)
-  server.tool(
+  server.registerTool(
     "shopify_bulk_update_content",
-    "Update titles and descriptions for multiple products. Perfect for AI-optimized content updates.",
     {
-      updates: z.array(z.object({
-        product_id: z.string().describe("Product ID"),
-        title: z.string().optional().describe("New product title"),
-        description_html: z.string().optional().describe("New product description (HTML supported)"),
-        seo_title: z.string().optional().describe("SEO title (meta title)"),
-        seo_description: z.string().optional().describe("SEO description (meta description)"),
-        tags: z.array(z.string()).optional().describe("Product tags"),
-      })).describe("Array of content updates"),
-      response_format: ResponseFormatSchema,
+      description: "Update titles and descriptions for multiple products. Perfect for AI-optimized content updates.",
+      annotations: {
+        readOnlyHint: false,
+        destructiveHint: true,
+      },
+      inputSchema: z.object({
+        updates: z.array(z.object({
+          product_id: z.string().describe("Product ID"),
+          title: z.string().optional().describe("New product title"),
+          description_html: z.string().optional().describe("New product description (HTML supported)"),
+          seo_title: z.string().optional().describe("SEO title (meta title)"),
+          seo_description: z.string().optional().describe("SEO description (meta description)"),
+          tags: z.array(z.string()).optional().describe("Product tags"),
+        })).describe("Array of content updates"),
+        response_format: ResponseFormatSchema,
+      }),
     },
-    async ({ updates, response_format = "markdown" }) => {
+    async (args: any) => {
+      const { updates, response_format = "markdown" } = args;
       const results: any[] = [];
 
       for (const update of updates) {
@@ -245,15 +259,21 @@ export function registerBulkOperationTools(server: McpServer): void {
   );
 
   // Apply collection-wide price change
-  server.tool(
+  server.registerTool(
     "shopify_collection_price_update",
-    "Apply a price change to all products in a collection. Great for sales and promotions.",
     {
+      description: "Apply a price change to all products in a collection. Great for sales and promotions.",
+      annotations: {
+        readOnlyHint: false,
+        destructiveHint: true,
+      },
+      inputSchema: z.object({
       collection_id: z.string().describe("Collection ID"),
       price_change_percent: z.number().optional().describe("Percentage change (e.g., -20 for 20% off)"),
       price_change_amount: z.string().optional().describe("Fixed amount change"),
       set_compare_at_from_current: z.boolean().optional().describe("Set compare_at_price to current price before changing (shows 'was $X' pricing)"),
       response_format: ResponseFormatSchema,
+    }),
     },
     async ({ collection_id, price_change_percent, price_change_amount, set_compare_at_from_current = false, response_format = "markdown" }) => {
       const collectionGid = toGid("Collection", collection_id);
@@ -356,14 +376,20 @@ export function registerBulkOperationTools(server: McpServer): void {
   );
 
   // Analyze and suggest price optimizations
-  server.tool(
+  server.registerTool(
     "shopify_analyze_pricing",
-    "Analyze product pricing and provide optimization suggestions. Returns data for AI-driven pricing decisions.",
     {
+      description: "Analyze product pricing and provide optimization suggestions. Returns data for AI-driven pricing decisions.",
+      annotations: {
+        readOnlyHint: true,
+        destructiveHint: false,
+      },
+      inputSchema: z.object({
       collection_id: z.string().optional().describe("Analyze products in a specific collection"),
       query: z.string().optional().describe("Product search query"),
       analysis_type: z.enum(["competitive", "margin", "velocity", "all"]).optional().describe("Type of analysis"),
       response_format: ResponseFormatSchema,
+    }),
     },
     async ({ collection_id, query, analysis_type = "all", response_format = "markdown" }) => {
       let products: any[] = [];
@@ -483,10 +509,15 @@ export function registerBulkOperationTools(server: McpServer): void {
   );
 
   // Generate marketing content for products
-  server.tool(
+  server.registerTool(
     "shopify_generate_social_content",
-    "Generate social media marketing content for products. Returns ready-to-post content for Twitter, Facebook, Instagram.",
     {
+      description: "Generate social media marketing content for products. Returns ready-to-post content for Twitter, Facebook, Instagram.",
+      annotations: {
+        readOnlyHint: true,
+        destructiveHint: false,
+      },
+      inputSchema: z.object({
       product_id: z.string().optional().describe("Specific product ID"),
       collection_id: z.string().optional().describe("Generate content for collection"),
       content_type: z.enum(["promotional", "new_arrival", "sale", "featured", "seasonal"]).describe("Type of content to generate"),
@@ -494,6 +525,7 @@ export function registerBulkOperationTools(server: McpServer): void {
       include_hashtags: z.boolean().optional().describe("Include relevant hashtags"),
       tone: z.enum(["professional", "casual", "exciting", "luxury"]).optional().describe("Content tone"),
       response_format: ResponseFormatSchema,
+    }),
     },
     async ({ product_id, collection_id, content_type, platforms = ["twitter", "facebook", "instagram"], include_hashtags = true, tone = "casual", response_format = "markdown" }) => {
       let products: any[] = [];

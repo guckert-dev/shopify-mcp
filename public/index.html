@@ -160,11 +160,24 @@
       border: 1px solid rgba(149, 191, 71, 0.25);
     }
 
-    .description {
-      color: #777;
-      font-size: 0.95rem;
-      line-height: 1.6;
+    .tagline {
+      text-align: center;
       margin-bottom: 0;
+    }
+
+    .tagline-headline {
+      color: #ffffff;
+      font-size: 1.15rem;
+      font-weight: 600;
+      line-height: 1.4;
+      margin-bottom: 8px;
+    }
+
+    .tagline-subheadline {
+      color: #666;
+      font-size: 0.9rem;
+      font-weight: 400;
+      line-height: 1.6;
     }
 
     .stats {
@@ -728,7 +741,10 @@
       <h1>Shopify MCP Server</h1>
       <span class="badge">Model Context Protocol</span>
 
-      <p class="description">The Definitive Model Context Protocol for Shopify. Empower Claude to securely reason, build, and orchestrate store operations with 70+ Admin API tools designed for the agentic future.</p>
+      <div class="tagline">
+        <div class="tagline-headline">The Definitive Model Context Protocol for Shopify.</div>
+        <div class="tagline-subheadline">Empower Claude to securely reason, build, and orchestrate store operations with 70+ Admin API tools designed for the agentic future.</div>
+      </div>
 
       <button class="vision-btn" onclick="showVision()">The Vision →</button>
 

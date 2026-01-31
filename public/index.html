@@ -51,7 +51,7 @@
       position: absolute;
       top: 50%;
       transform: translateY(-50%);
-      width: 180px;
+      width: 220px;
       height: 550px;
       overflow: hidden;
       opacity: 0;
@@ -69,11 +69,11 @@
       display: flex;
       flex-direction: column;
       gap: 10px;
-      animation: scrollUp 35s linear infinite;
+      animation: scrollUp 44s linear infinite;
     }
 
     .tools-column.right .tools-scroll {
-      animation: scrollDown 35s linear infinite;
+      animation: scrollDown 44s linear infinite;
     }
 
     @keyframes scrollUp {
@@ -89,20 +89,23 @@
     .tool-card {
       background: #1a1a1a;
       border: 1px solid #2a2a2a;
-      padding: 12px 14px;
+      padding: 14px 18px;
       border-radius: 10px;
-      font-size: 0.75rem;
+      font-size: 0.8rem;
       font-weight: 500;
-      color: #fff;
-      white-space: nowrap;
     }
 
     .tool-card .tool-category {
-      font-size: 0.6rem;
+      font-size: 0.65rem;
       color: #95bf47;
       text-transform: uppercase;
       letter-spacing: 0.05em;
-      margin-bottom: 3px;
+      margin-bottom: 4px;
+      font-weight: 600;
+    }
+
+    .tool-card .tool-name {
+      color: #ffffff;
       font-weight: 600;
     }
 

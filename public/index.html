@@ -457,18 +457,18 @@
       margin-top: 2px;
     }
 
-    /* Inspector Panel - Vision Glass Deep Dive Mode */
+    /* Inspector Panel - Icy Vision Glass Deep Dive Mode */
     .inspector-panel {
       position: fixed;
       top: 0;
       right: 0;
       width: 420px;
       height: 100vh;
-      background: rgba(9, 9, 11, 0.60);
-      backdrop-filter: blur(60px) saturate(180%);
-      -webkit-backdrop-filter: blur(60px) saturate(180%);
-      border-left: 1px solid rgba(255, 255, 255, 0.20);
-      border-top: 1px solid rgba(255, 255, 255, 0.15);
+      background: rgba(0, 0, 0, 0.35);
+      backdrop-filter: blur(80px) saturate(200%);
+      -webkit-backdrop-filter: blur(80px) saturate(200%);
+      border-left: 1px solid rgba(255, 255, 255, 0.15);
+      border-top: 1px solid rgba(255, 255, 255, 0.25);
       z-index: 100;
       transform: translateX(100%);
       transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
@@ -476,16 +476,17 @@
       flex-direction: column;
       overflow: hidden;
       box-shadow:
-        inset 1px 1px 1px 0 rgba(255, 255, 255, 0.1),
-        inset 0 0 80px 0 rgba(0, 0, 0, 0.2),
-        -20px 0 80px -20px rgba(0, 0, 0, 0.5);
+        inset 0 1px 0 0 rgba(255, 255, 255, 0.15),
+        inset 1px 0 0 0 rgba(255, 255, 255, 0.08),
+        -30px 0 100px -20px rgba(0, 0, 0, 0.6),
+        0 0 120px -40px rgba(150, 191, 72, 0.1);
     }
 
     .inspector-panel.visible {
       transform: translateX(0);
     }
 
-    /* Subtle noise texture for glass depth */
+    /* Frosted ice texture overlay */
     .inspector-panel::before {
       content: '';
       position: absolute;
@@ -494,44 +495,43 @@
       right: 0;
       bottom: 0;
       background:
-        repeating-linear-gradient(
-          0deg,
-          transparent,
-          transparent 2px,
-          rgba(255, 255, 255, 0.005) 2px,
-          rgba(255, 255, 255, 0.005) 4px
-        ),
         radial-gradient(
           ellipse at top left,
-          rgba(255, 255, 255, 0.05) 0%,
+          rgba(255, 255, 255, 0.12) 0%,
+          transparent 50%
+        ),
+        radial-gradient(
+          ellipse at bottom right,
+          rgba(150, 191, 72, 0.05) 0%,
           transparent 50%
         );
       pointer-events: none;
       z-index: 1;
     }
 
-    /* Light-catching edge accent */
+    /* Bright light-catching edge */
     .inspector-panel::after {
       content: '';
       position: absolute;
       top: 0;
       left: 0;
-      width: 1px;
+      width: 2px;
       height: 100%;
       background: linear-gradient(
         180deg,
-        rgba(255, 255, 255, 0.4) 0%,
-        rgba(150, 191, 72, 0.6) 20%,
-        rgba(150, 191, 72, 0.3) 50%,
-        rgba(255, 255, 255, 0.1) 80%,
+        rgba(255, 255, 255, 0.5) 0%,
+        rgba(255, 255, 255, 0.3) 10%,
+        rgba(150, 191, 72, 0.5) 25%,
+        rgba(150, 191, 72, 0.2) 50%,
+        rgba(255, 255, 255, 0.15) 75%,
         transparent 100%
       );
     }
 
     .inspector-header {
       padding: 28px 28px 20px;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-      background: rgba(0, 0, 0, 0.2);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      background: rgba(0, 0, 0, 0.15);
       display: flex;
       align-items: flex-start;
       justify-content: space-between;
@@ -546,7 +546,7 @@
       left: 28px;
       right: 28px;
       height: 1px;
-      background: linear-gradient(90deg, rgba(150, 191, 72, 0.3), transparent 60%);
+      background: linear-gradient(90deg, rgba(150, 191, 72, 0.4), transparent 60%);
     }
 
     .inspector-header-content {
@@ -562,6 +562,7 @@
       color: #5C6AC4;
       text-transform: uppercase;
       letter-spacing: 0.25em;
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
     }
 
     .inspector-title {
@@ -569,12 +570,13 @@
       font-weight: 700;
       color: #fff;
       letter-spacing: -0.02em;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
     }
 
     .inspector-close {
-      background: rgba(255, 255, 255, 0.03);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      color: #5a5a5a;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: #8a8a8a;
       width: 32px;
       height: 32px;
       border-radius: 8px;
@@ -583,12 +585,15 @@
       align-items: center;
       justify-content: center;
       transition: all 0.25s ease;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
     }
 
     .inspector-close:hover {
-      background: rgba(239, 68, 68, 0.1);
-      border-color: rgba(239, 68, 68, 0.3);
+      background: rgba(239, 68, 68, 0.15);
+      border-color: rgba(239, 68, 68, 0.4);
       color: #ef4444;
+      box-shadow: 0 0 20px rgba(239, 68, 68, 0.2);
     }
 
     .inspector-body {
@@ -611,52 +616,58 @@
       font-family: 'JetBrains Mono', monospace;
       font-size: 0.58rem;
       font-weight: 500;
-      color: #4a4a4a;
+      color: #6a6a6a;
       text-transform: uppercase;
       letter-spacing: 0.2em;
       margin-bottom: 10px;
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
     }
 
     .inspector-text {
       font-size: 0.88rem;
-      color: #a0a0a0;
+      color: #c0c0c0;
       line-height: 1.65;
+      text-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
     }
 
     .inspector-text strong {
       color: #fff;
       font-weight: 600;
+      text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
     }
 
     .inspector-code {
       font-family: 'JetBrains Mono', monospace;
-      color: #96bf48;
-      background: rgba(150, 191, 72, 0.08);
-      padding: 2px 6px;
+      color: #a4d252;
+      background: rgba(150, 191, 72, 0.15);
+      padding: 2px 8px;
       border-radius: 4px;
       font-size: 0.82rem;
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
+      border: 1px solid rgba(150, 191, 72, 0.2);
     }
 
     .inspector-detail-block {
-      background: rgba(0, 0, 0, 0.30);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(0, 0, 0, 0.25);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
       border-left: 2px solid #96bf48;
-      border-top: 1px solid rgba(255, 255, 255, 0.12);
-      border-radius: 0 10px 10px 0;
-      padding: 16px 18px;
+      border-top: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 0 12px 12px 0;
+      padding: 18px 20px;
       margin-top: 16px;
       box-shadow:
-        inset 0 1px 0 0 rgba(255, 255, 255, 0.05),
-        0 4px 16px -4px rgba(0, 0, 0, 0.3);
+        inset 0 1px 0 0 rgba(255, 255, 255, 0.08),
+        0 8px 32px -8px rgba(0, 0, 0, 0.4);
     }
 
     .inspector-detail-block p {
       font-size: 0.82rem;
-      color: #8a8a8a;
+      color: #b0b0b0;
       line-height: 1.6;
       margin-bottom: 12px;
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
     }
 
     .inspector-detail-block p:last-child {
@@ -673,8 +684,9 @@
       padding-left: 20px;
       margin-bottom: 16px;
       font-size: 0.85rem;
-      color: #a0a0a0;
+      color: #b0b0b0;
       line-height: 1.5;
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
     }
 
     .inspector-list li::before {
@@ -684,9 +696,10 @@
       top: 8px;
       width: 8px;
       height: 8px;
-      background: rgba(150, 191, 72, 0.3);
+      background: rgba(150, 191, 72, 0.4);
       border: 1px solid #96bf48;
       border-radius: 2px;
+      box-shadow: 0 0 8px rgba(150, 191, 72, 0.3);
     }
 
     .inspector-list li strong {
@@ -694,6 +707,7 @@
       font-weight: 600;
       display: block;
       margin-bottom: 4px;
+      text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
     }
 
     /* Layout shifts when inspector is open */
